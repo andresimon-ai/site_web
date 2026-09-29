@@ -3,14 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TwoDevs | Création de Sites Internet par Étudiants en BUT Informatique</title>
-    
-    <!-- SEO & Open Graph -->
-    <meta name="description" content="Création de sites internet sur-mesure pour particuliers, artisans et entreprises par deux étudiants en BUT Informatique.">
-    <meta property="og:title" content="TwoDevs | Création de Sites Internet">
-    <meta property="og:description" content="Sites internet épurés, performants et accessibles conçus par deux étudiants en BUT Informatique.">
-    <meta property="og:type" content="website">
-
+    <title>TwoDevs — Création de sites web sur-mesure & accessibles</title>
+    <meta name="description" content="Création de sites internet modernes, rapides et épurés pour particuliers et entreprises par deux étudiants en BUT Informatique.">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -18,357 +12,277 @@
             theme: {
                 extend: {
                     colors: {
-                        neutral: {
-                            50: '#fafafa',
-                            100: '#f5f5f5',
-                            200: '#e5e5e5',
-                            300: '#d4d4d4',
-                            400: '#a3a3a3',
-                            500: '#737373',
-                            600: '#525252',
-                            700: '#404040',
-                            800: '#262626',
-                            900: '#171717',
+                        brand: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-    <!-- Font Inter -->
+    <!-- Google Fonts Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body class="bg-neutral-50 text-neutral-800 font-sans antialiased selection:bg-neutral-900 selection:text-white">
+<body class="bg-white text-slate-900 antialiased selection:bg-slate-900 selection:text-white flex flex-col min-h-screen">
 
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-neutral-200/80">
-        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="#" class="text-base font-semibold tracking-tight text-neutral-900 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-neutral-900 inline-block"></span>
-                <span>TwoDevs<span class="text-neutral-400 font-normal">.web</span></span>
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-tight hover:opacity-80 transition flex items-center gap-2">
+                <span class="inline-block w-3 h-3 bg-slate-900 rounded-full"></span>
+                TwoDevs
             </a>
-
-            <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-8 text-xs font-medium text-neutral-600">
-                <a href="#offres" class="hover:text-neutral-900 transition-colors">Offres</a>
-                <a href="#a-propos" class="hover:text-neutral-900 transition-colors">À propos</a>
-                <a href="#contact" class="hover:text-neutral-900 transition-colors">Contact</a>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <a href="#services" class="hover:text-slate-900 transition">Nos Formules</a>
+                <a href="#about" class="hover:text-slate-900 transition">Qui sommes-nous</a>
+                <a href="#contact" class="hover:text-slate-900 transition">Contact</a>
             </nav>
 
-            <a href="#contact" class="hidden md:inline-flex items-center justify-center px-3.5 py-1.5 text-xs font-medium text-white bg-neutral-900 rounded-md hover:bg-neutral-800 transition-colors">
-                Lancer un projet
+            <a href="#contact" class="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors bg-slate-900 text-white hover:bg-slate-800 h-10 px-5 py-2">
+                Demander un devis
             </a>
-
-            <!-- Mobile menu button -->
-            <button id="mobile-menu-btn" class="md:hidden text-neutral-600 hover:text-neutral-900 focus:outline-none p-1" aria-label="Ouvrir le menu">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
-        </div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden border-b border-neutral-200 bg-white px-6 py-4 space-y-3">
-            <a href="#offres" class="block text-neutral-600 hover:text-neutral-900 text-sm font-medium">Offres</a>
-            <a href="#a-propos" class="block text-neutral-600 hover:text-neutral-900 text-sm font-medium">À propos</a>
-            <a href="#contact" class="block text-neutral-600 hover:text-neutral-900 text-sm font-medium">Contact</a>
         </div>
     </header>
 
-    <main class="pt-16">
-        <section class="min-h-[82vh] flex items-center justify-center px-6 py-20 bg-white border-b border-neutral-200/60">
-            <div class="max-w-3xl mx-auto text-center space-y-8">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 bg-neutral-50 text-[11px] font-medium text-neutral-600">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    TwoDevs · 2 Étudiants en BUT Informatique Disponibles
-                </div>
-                
-                <h1 class="text-4xl sm:text-6xl font-semibold tracking-tight text-neutral-900 leading-[1.12]">
-                    Des sites internet clairs, rapides et faits pour durer.
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="py-24 md:py-32 border-b border-slate-100">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium bg-slate-100 text-slate-800 mb-8 border border-slate-200">
+                    Développeurs web & étudiants en BUT Informatique
+                </span>
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 leading-[1.15] mb-6">
+                    Des sites web simples, efficaces et conçus pour durer.
                 </h1>
-
-                <p class="text-base sm:text-lg text-neutral-600 max-w-xl mx-auto font-normal leading-relaxed">
-                    Chez TwoDevs, nous concevons des sites web professionnels sur-mesure pour les particuliers, artisans et petites entreprises. Sans fioritures inutiles, avec un code propre.
+                <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 font-normal leading-relaxed">
+                    Nous créons des espaces numériques épurés, rapides et parfaitement adaptés aux besoins des particuliers, artisans et entreprises.
                 </p>
-
-                <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <a href="#offres" class="w-full sm:w-auto px-6 py-3 text-xs font-semibold text-white bg-neutral-900 rounded-md hover:bg-neutral-800 transition-colors text-center">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#services" class="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors bg-slate-900 text-white hover:bg-slate-800 h-12 px-8">
                         Découvrir nos offres
                     </a>
-                    <a href="#contact" class="w-full sm:w-auto px-6 py-3 text-xs font-semibold text-neutral-700 bg-white border border-neutral-200 rounded-md hover:bg-neutral-50 transition-colors text-center">
-                        Nous contacter
+                    <a href="#about" class="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors border border-slate-200 bg-white hover:bg-slate-50 text-slate-900 h-12 px-8">
+                        En savoir plus sur nous
                     </a>
                 </div>
             </div>
         </section>
 
-        <section id="offres" class="py-24 px-6 bg-neutral-50">
-            <div class="max-w-6xl mx-auto space-y-16">
-                <div class="text-center space-y-3 max-w-2xl mx-auto">
-                    <h2 class="text-[11px] uppercase tracking-widest text-neutral-400 font-semibold">Formules</h2>
-                    <p class="text-2xl sm:text-3xl font-semibold text-neutral-900 tracking-tight">Des prestations adaptées à vos besoins</p>
-                    <p class="text-neutral-500 text-xs sm:text-sm">Une tarification transparente pour vous lancer en toute confiance.</p>
+        <!-- Formules Section -->
+        <section id="services" class="py-24 bg-slate-50 border-b border-slate-100">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight mb-4">Nos Formules</h2>
+                    <p class="text-slate-600">Des tarifs transparents, adaptés aux besoins spécifiques de chaque projet, sans frais cachés.</p>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-6">
+                <div class="grid md:grid-cols-3 gap-8">
                     <!-- Formule 1 -->
-                    <div class="bg-white border border-neutral-200 rounded-xl p-7 flex flex-col justify-between hover:border-neutral-300 transition-all">
-                        <div class="space-y-6">
-                            <div>
-                                <h3 class="text-base font-semibold text-neutral-900">Site Vitrine / Essentiel</h3>
-                                <p class="text-xs text-neutral-500 mt-1">Particuliers, artisans & indépendants</p>
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm flex flex-col justify-between hover:border-slate-300 transition">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-xl font-semibold">Vitrine Essentiel</h3>
                             </div>
-                            <div class="pt-2 border-t border-neutral-100">
-                                <span class="text-2xl font-bold text-neutral-900">Dès 300 €</span>
-                            </div>
-                            <ul class="space-y-2.5 text-xs text-neutral-600">
-                                <li class="flex items-center gap-2.5">
-                                    <svg class="w-3.5 h-3.5 text-neutral-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                    <span>Landing page ou site 1 à 3 pages</span>
+                            <p class="text-slate-600 text-sm mb-6">Parfait pour présenter votre activité rapidement avec un site monopage clair.</p>
+                            <div class="text-3xl font-bold mb-6">Sur devis</div>
+                            <ul class="space-y-3 text-sm text-slate-600 mb-8">
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Page unique (One-page)
                                 </li>
-                                <li class="flex items-center gap-2.5">
-                                    <svg class="w-3.5 h-3.5 text-neutral-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                    <span>Design 100% responsive (mobile/PC)</span>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Design ultra-minimaliste
                                 </li>
-                                <li class="flex items-center gap-2.5">
-                                    <svg class="w-3.5 h-3.5 text-neutral-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                    <span>Optimisation SEO de base & rapidité</span>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Adapté aux mobiles & tablettes
                                 </li>
-                                <li class="flex items-center gap-2.5">
-                                    <svg class="w-3.5 h-3.5 text-neutral-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                    <span>Formulaire de contact intégré</span>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Formulaire de contact
                                 </li>
                             </ul>
                         </div>
-                        <div class="pt-8">
-                            <button onclick="selectFormule('Site Vitrine / Essentiel')" class="w-full py-2.5 px-4 rounded-md border border-neutral-200 text-neutral-800 text-xs font-medium hover:bg-neutral-50 transition-colors">
-                                Choisir cette formule
-                            </button>
-                        </div>
+                        <a href="#contact" onclick="selectFormula('Vitrine Essentiel')" class="inline-flex justify-center items-center rounded-lg text-sm font-medium bg-slate-100 hover:bg-slate-200 text-slate-900 h-10 w-full transition">Choisir cette formule</a>
                     </div>
 
                     <!-- Formule 2 -->
-                    <div class="bg-white border-2 border-neutral-900 rounded-xl p-7 flex flex-col justify-between shadow-sm relative">
-                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-neutral-900 text-[10px] font-semibold tracking-wider text-white rounded-full uppercase">
-                            Recommandé
-                        </div>
-                        <div class="space-y-6">
-                            <div>
-                                <h3 class="text-base font-semibold text-neutral-900">Sur-Mesure / Business</h3>
-                                <p class="text-xs text-neutral-500 mt-1">PME, entreprises & projets complets</p>
+                    <div class="bg-white rounded-2xl p-8 border-2 border-slate-900 shadow-md flex flex-col justify-between relative">
+                        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs px-3 py-1 rounded-full font-medium">Recommandé</span>
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-xl font-semibold">Site Sur-Mesure</h3>
                             </div>
-                            <div class="pt-2 border-t border-neutral-100">
-                                <span class="text-2xl font-bold text-neutral-900">Dès 600 €</span>
-                            </div>
-                            <ul class="space-y-2.5 text-xs text-neutral-600">
-                                <li class="flex items-center gap-2.5">
-                                    <svg class="w-3.5 h-3.5 text-neutral-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                    <span>Multi-pages (jusqu'à 8 pages)</span>
+                            <p class="text-slate-600 text-sm mb-6">Pour les petites entreprises ou indépendants ayant besoin de plusieurs pages.</p>
+                            <div class="text-3xl font-bold mb-6">Sur devis</div>
+                            <ul class="space-y-3 text-sm text-slate-600 mb-8">
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Jusqu'à 5 pages distinctes
                                 </li>
-                                <li class="flex items-center gap-2.5">
-                                    <svg class="w-3.5 h-3.5 text-neutral-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                    <span>Animations fluides & fonctionnalités métier</span>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Optimisation SEO de base
                                 </li>
-                                <li class="flex items-center gap-2.5">
-                                    <svg class="w-3.5 h-3.5 text-neutral-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                    <span>Formulaires dynamiques & intégration</span>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Hébergement & Domaine configurés
                                 </li>
-                                <li class="flex items-center gap-2.5">
-                                    <svg class="w-3.5 h-3.5 text-neutral-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                    <span>Guide d'administration & formation</span>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Design personnalisé & épuré
                                 </li>
                             </ul>
                         </div>
-                        <div class="pt-8">
-                            <button onclick="selectFormule('Sur-Mesure / Business')" class="w-full py-2.5 px-4 rounded-md bg-neutral-900 text-white text-xs font-medium hover:bg-neutral-800 transition-colors">
-                                Demander un devis
-                            </button>
-                        </div>
+                        <a href="#contact" onclick="selectFormula('Site Sur-Mesure')" class="inline-flex justify-center items-center rounded-lg text-sm font-medium bg-slate-900 hover:bg-slate-800 text-white h-10 w-full transition">Choisir cette formule</a>
                     </div>
 
                     <!-- Formule 3 -->
-                    <div class="bg-white border border-neutral-200 rounded-xl p-7 flex flex-col justify-between hover:border-neutral-300 transition-all">
-                        <div class="space-y-6">
-                            <div>
-                                <h3 class="text-base font-semibold text-neutral-900">Projet Spécifique</h3>
-                                <p class="text-xs text-neutral-500 mt-1">Applications web & E-commerce</p>
+                    <div class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm flex flex-col justify-between hover:border-slate-300 transition">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-xl font-semibold">Projet Spécifique</h3>
                             </div>
-                            <div class="pt-2 border-t border-neutral-100">
-                                <span class="text-2xl font-bold text-neutral-900">Sur devis</span>
-                            </div>
-                            <ul class="space-y-2.5 text-xs text-neutral-600">
-                                <li class="flex items-center gap-2.5">
-                                    <svg class="w-3.5 h-3.5 text-neutral-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                    <span>Développement web dynamique (React, Node)</span>
+                            <p class="text-slate-600 text-sm mb-6">Besoins particuliers : fonctionnalités sur-mesure, refonte complète ou support.</p>
+                            <div class="text-3xl font-bold mb-6">Personnalisé</div>
+                            <ul class="space-y-3 text-sm text-slate-600 mb-8">
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Cahier des charges sur-mesure
                                 </li>
-                                <li class="flex items-center gap-2.5">
-                                    <svg class="w-3.5 h-3.5 text-neutral-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                    <span>Bases de données & API personnalisées</span>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Développement web spécifique
                                 </li>
-                                <li class="flex items-center gap-2.5">
-                                    <svg class="w-3.5 h-3.5 text-neutral-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                    <span>Espaces membres ou boutiques en ligne</span>
-                                </li>
-                                <li class="flex items-center gap-2.5">
-                                    <svg class="w-3.5 h-3.5 text-neutral-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                    <span>Suivi technique & maintenance</span>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Accompagnement continu
                                 </li>
                             </ul>
                         </div>
-                        <div class="pt-8">
-                            <button onclick="selectFormule('Projet Spécifique')" class="w-full py-2.5 px-4 rounded-md border border-neutral-200 text-neutral-800 text-xs font-medium hover:bg-neutral-50 transition-colors">
-                                Parler de mon besoin
-                            </button>
+                        <a href="#contact" onclick="selectFormula('Projet Spécifique')" class="inline-flex justify-center items-center rounded-lg text-sm font-medium bg-slate-100 hover:bg-slate-200 text-slate-900 h-10 w-full transition">Nous contacter</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 border-b border-slate-100">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="grid md:grid-cols-12 gap-12 items-center">
+                    <div class="md:col-span-5">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2 block">L'équipe</span>
+                        <h2 class="text-3xl font-bold tracking-tight text-slate-900 mb-6">Qui sommes-nous ?</h2>
+                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                            <p class="text-2xl font-semibold text-slate-900 mb-1">TwoDevs</p>
+                            <p class="text-sm text-slate-600">Binôme de développeurs web</p>
+                            <div class="mt-4 pt-4 border-t border-slate-200/60 flex items-center gap-2 text-xs font-medium text-slate-500">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                Étudiants en BUT Informatique
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="a-propos" class="py-24 px-6 bg-white border-t border-b border-neutral-200/60">
-            <div class="max-w-4xl mx-auto space-y-12">
-                <div class="space-y-3">
-                    <h2 class="text-[11px] uppercase tracking-widest text-neutral-400 font-semibold">À propos de TwoDevs</h2>
-                    <h3 class="text-2xl sm:text-3xl font-semibold text-neutral-900 tracking-tight">Deux profils techniques au service de votre image</h3>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8 text-neutral-600 text-xs sm:text-sm leading-relaxed">
-                    <div class="space-y-4">
+                    <div class="md:col-span-7 space-y-4 text-slate-600 leading-relaxed">
                         <p>
-                            Étudiants en <strong class="text-neutral-900 font-medium">BUT Informatique</strong>, nous avons créé <strong class="text-neutral-900 font-medium">TwoDevs</strong> pour allier rigueur académique et passion pour les technologies modernes du web.
+                            Nous sommes deux étudiants passionnés en <strong>BUT Informatique</strong>. Durant nos études, nous avons appris à concevoir des applications web modernes, robustes et bien structurées.
                         </p>
                         <p>
-                            Notre objectif est de vous éviter la complexité technique et les tarifs excessifs des agences traditionnelles, tout en livrant un travail irréprochable.
-                        </p>
-                    </div>
-                    <div class="space-y-4">
-                        <p>
-                            Nous privilégions un design épuré, la rapidité d'affichage, et un code maintenable pour que votre site reste performant sur le long terme.
+                            Notre philosophie est simple : <strong>privilégier l'essentiel</strong>. Pas de fioritures inutiles, pas de sites lourds qui mettent du temps à charger. Nous proposons des solutions claires, rapides et adaptées aux besoins réels de nos clients.
                         </p>
                         <p>
-                            Vous échangez directement avec nous deux, garantissant une grande réactivité et un suivi sur-mesure pour chaque projet.
+                            En travaillant avec nous, vous bénéficiez d'un contact direct, d'une grande réactivité et de tarifs adaptés, tout en soutenant deux futurs professionnels du secteur.
                         </p>
-                    </div>
-                </div>
-
-                <!-- Features Badges -->
-                <div class="grid sm:grid-cols-3 gap-4 pt-4">
-                    <div class="p-5 border border-neutral-200 rounded-lg bg-neutral-50/50">
-                        <span class="text-neutral-900 font-semibold text-sm block mb-1">Code Propre & Léger</span>
-                        <span class="text-xs text-neutral-500">Pas de surcouche inutile. Des sites rapides et économes en ressources.</span>
-                    </div>
-                    <div class="p-5 border border-neutral-200 rounded-lg bg-neutral-50/50">
-                        <span class="text-neutral-900 font-semibold text-sm block mb-1">Tarifs Adaptés</span>
-                        <span class="text-xs text-neutral-500">Une structure de prix juste pensée pour les petits budgets et indépendants.</span>
-                    </div>
-                    <div class="p-5 border border-neutral-200 rounded-lg bg-neutral-50/50">
-                        <span class="text-neutral-900 font-semibold text-sm block mb-1">Écoute & Proximité</span>
-                        <span class="text-xs text-neutral-500">Un échange fluide de la première idée jusqu'à la mise en ligne.</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="py-24 px-6 bg-neutral-50">
-            <div class="max-w-2xl mx-auto space-y-10">
-                <div class="text-center space-y-3">
-                    <h2 class="text-[11px] uppercase tracking-widest text-neutral-400 font-semibold">Contact</h2>
-                    <h3 class="text-2xl sm:text-3xl font-semibold text-neutral-900 tracking-tight">Discutons de votre projet</h3>
-                    <p class="text-neutral-500 text-xs sm:text-sm">Envoyez-nous un message. Réponse sous 24h à 48h.</p>
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 bg-slate-50">
+            <div class="max-w-2xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 mb-4">Parlons de votre projet</h2>
+                    <p class="text-slate-600">Remplissez le formulaire ci-dessous pour nous expliquer vos besoins. Nous vous répondrons sous 24h.</p>
                 </div>
 
-                <!-- Formulaire FormSubmit configuré pour twodevs@outlook.com -->
-                <form action="https://formsubmit.co/twodevs@outlook.com" method="POST" class="space-y-5 bg-white border border-neutral-200 p-6 sm:p-8 rounded-xl shadow-sm">
+                <form action="https://formsubmit.co/twodevs@outlook.fr" method="POST" class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm space-y-6">
                     <!-- Configuration FormSubmit -->
-                    <input type="hidden" name="_subject" value="Nouveau message / Demande de devis - TwoDevs">
+                    <input type="hidden" name="_subject" value="Nouvelle demande de devis — TwoDevs">
                     <input type="hidden" name="_template" value="table">
                     <input type="hidden" name="_captcha" value="false">
 
-                    <div class="grid sm:grid-cols-2 gap-5">
-                        <div class="space-y-1.5">
-                            <label for="name" class="block text-xs font-medium text-neutral-700">Nom ou Entreprise</label>
-                            <input type="text" id="name" name="Nom" required placeholder="ex: Alex Martin" class="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-md text-xs text-neutral-900 placeholder-neutral-400 focus:outline-none focus:bg-white focus:border-neutral-400 transition-colors">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-slate-700 mb-2">Votre nom / Entreprise</label>
+                            <input type="text" id="name" name="nom" required placeholder="Jean Dupont" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 transition text-sm">
                         </div>
-                        <div class="space-y-1.5">
-                            <label for="email" class="block text-xs font-medium text-neutral-700">Adresse e-mail</label>
-                            <input type="email" id="email" name="Email" required placeholder="alex@exemple.fr" class="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-md text-xs text-neutral-900 placeholder-neutral-400 focus:outline-none focus:bg-white focus:border-neutral-400 transition-colors">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Adresse e-mail</label>
+                            <input type="email" id="email" name="email" required placeholder="jean@exemple.fr" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 transition text-sm">
                         </div>
                     </div>
 
-                    <div class="space-y-1.5">
-                        <label for="formule" class="block text-xs font-medium text-neutral-700">Formule souhaitée</label>
-                        <select id="formule" name="Formule" class="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-md text-xs text-neutral-900 focus:outline-none focus:bg-white focus:border-neutral-400 transition-colors">
-                            <option value="Projet non spécifié">Sélectionnez une option...</option>
-                            <option value="Site Vitrine / Essentiel">Site Vitrine / Essentiel</option>
-                            <option value="Sur-Mesure / Business">Sur-Mesure / Business</option>
+                    <div>
+                        <label for="formula" class="block text-sm font-medium text-slate-700 mb-2">Formule souhaitée</label>
+                        <select id="formula" name="formule" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 transition text-sm bg-white">
+                            <option value="Non spécifié">Sélectionnez une option...</option>
+                            <option value="Vitrine Essentiel">Vitrine Essentiel</option>
+                            <option value="Site Sur-Mesure">Site Sur-Mesure</option>
                             <option value="Projet Spécifique">Projet Spécifique</option>
-                            <option value="Autre demande">Autre demande</option>
                         </select>
                     </div>
 
-                    <div class="space-y-1.5">
-                        <label for="message" class="block text-xs font-medium text-neutral-700">Votre message</label>
-                        <textarea id="message" name="Message" rows="4" required placeholder="Décrivez succinctement votre projet ou posez vos questions..." class="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-md text-xs text-neutral-900 placeholder-neutral-400 focus:outline-none focus:bg-white focus:border-neutral-400 transition-colors resize-none"></textarea>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-slate-700 mb-2">Décrivez brièvement votre projet</label>
+                        <textarea id="message" name="message" rows="4" required placeholder="Expliquez-nous vos besoins, vos délais ou vos questions..." class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 transition text-sm resize-none"></textarea>
                     </div>
 
-                    <button type="submit" class="w-full py-3 px-4 rounded-md bg-neutral-900 text-white font-medium text-xs hover:bg-neutral-800 transition-colors">
-                        Envoyer ma demande
+                    <button type="submit" class="w-full inline-flex justify-center items-center rounded-lg text-sm font-medium bg-slate-900 hover:bg-slate-800 text-white h-12 transition">
+                        Envoyer la demande
                     </button>
                 </form>
 
-                <div class="pt-4 border-t border-neutral-200 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-500 gap-3">
-                    <div>
-                        Contact direct : <a href="mailto:twodevs@outlook.com" class="text-neutral-800 font-medium hover:underline">twodevs@outlook.com</a>
-                    </div>
-                    <div>
-                        Basés en France · Prestations à distance
-                    </div>
+                <div class="mt-8 text-center text-sm text-slate-500">
+                    Ou écrivez-nous directement à <a href="mailto:twodevs@outlook.fr" class="text-slate-900 underline font-medium">twodevs@outlook.fr</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="border-t border-neutral-200 py-8 px-6 bg-white text-xs text-neutral-500">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-            <p>© <span id="year"></span> TwoDevs · Tous droits réservés.</p>
-            <p class="text-neutral-400 flex items-center gap-1.5 justify-center sm:justify-start">
-                <span>Déployé avec</span>
-                <span class="text-neutral-700 font-medium">GitHub</span>
-                <span>&</span>
-                <span class="text-neutral-700 font-medium">Vercel</span>
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-100 py-12">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2 font-bold text-slate-900">
+                <span class="w-2.5 h-2.5 bg-slate-900 rounded-full"></span>
+                TwoDevs
+            </div>
+            <p class="text-xs text-slate-500">
+                &copy; TwoDevs. Tous droits réservés. Étudiants en BUT Informatique.
             </p>
         </div>
     </footer>
 
     <script>
-        // Année courante
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Menu mobile
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Auto-sélection de formule
-        function selectFormule(name) {
-            const selectElement = document.getElementById('formule');
+        function selectFormula(formulaName) {
+            const selectElement = document.getElementById('formula');
             if (selectElement) {
-                selectElement.value = name;
+                selectElement.value = formulaName;
             }
-            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
