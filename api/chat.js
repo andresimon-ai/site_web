@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  // Autoriser CORS
+  // Configurer les en-têtes CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,POST');
@@ -16,15 +16,17 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Méthode non autorisée. Utilisez POST.' });
   }
 
+  const fallbackAnswer = "Chez TwoDevs, nous concevons des sites vitrines modernes (dès 390 €) et des solutions sur-mesure avec assistant IA (dès 790 €), ultra-rapides et sans abonnement. N'hésitez pas à nous envoyer un message via le formulaire en bas de page pour échanger de vive voix !";
+
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({
-      error: 'GEMINI_API_KEY non configurée dans les variables d\'environnement Vercel.'
-    });
+    console.warn("GEMINI_API_KEY manquante dans l'environnement Vercel.");
+    return res.status(200).json({ text: fallbackAnswer });
   }
 
   try {
-    const { history, userQuestion } = req.body || {};
+    const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+    const { history, userQuestion } = body;
 
     const systemPrompt = `Tu es l'assistant virtuel officiel et bienveillant de "TwoDevs", un studio d'ingénierie web et d'intelligence artificielle fondé par deux étudiants passionnés en BUT Informatique en France.
 Ton rôle est de répondre aux questions des visiteurs avec clarté, professionnalisme et concision, et de les orienter vers la formule idéale :
@@ -49,20 +51,24 @@ Consignes pour tes réponses :
       ? history
       : [{ role: 'user', parts: [{ text: userQuestion || 'Bonjour' }] }];
 
-    // Nettoyer les messages pour ne garder que role et parts
     contents = contents.map(item => ({
       role: item.role === 'model' ? 'model' : 'user',
       parts: item.parts && Array.isArray(item.parts) ? item.parts : [{ text: String(item.text || '') }]
     }));
 
-    const models = ["gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-3.5-flash"];
+    // Modèles rapides et fiables disponibles
+    const models = ["gemini-flash-lite-latest", "gemini-3.5-flash-lite", "gemini-flash-latest"];
     let replyText = null;
 
     for (const model of models) {
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 12000);
+
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
           body: JSON.stringify({
             system_instruction: { parts: [{ text: systemPrompt }] },
             contents: contents,
@@ -72,6 +78,7 @@ Consignes pour tes réponses :
             }
           })
         });
+        clearTimeout(timeoutId);
 
         if (response.ok) {
           const data = await response.json();
@@ -80,19 +87,21 @@ Consignes pour tes réponses :
             replyText = candidate.trim();
             break;
           }
+        } else {
+          console.warn(`Modèle ${model} status ${response.status}`);
         }
       } catch (err) {
-        console.warn(`Erreur avec modèle ${model}:`, err);
+        console.warn(`Erreur pour modèle ${model}:`, err.message);
       }
     }
 
     if (!replyText) {
-      replyText = "Chez TwoDevs, nous concevons des sites vitrines modernes (dès 390 €) et des solutions sur-mesure avec assistant IA (dès 790 €), ultra-rapides et sans abonnement. N'hésitez pas à nous envoyer un message via le formulaire en bas de page pour échanger de vive voix !";
+      replyText = fallbackAnswer;
     }
 
     return res.status(200).json({ text: replyText });
   } catch (error) {
     console.error('Erreur API Chat:', error);
-    return res.status(500).json({ error: 'Erreur interne du serveur' });
+    return res.status(200).json({ text: fallbackAnswer });
   }
 }

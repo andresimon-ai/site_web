@@ -1086,7 +1086,7 @@
         const GEMINI_API_KEY = (typeof window !== 'undefined' && window.GEMINI_API_KEY && window.GEMINI_API_KEY !== 'VOTRE_CLE_API_GEMINI') 
             ? window.GEMINI_API_KEY 
             : (typeof localStorage !== 'undefined' ? (localStorage.getItem('gemini_api_key') || '') : '');
-        const GEMINI_MODELS = ["gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-3.5-flash"];
+        const GEMINI_MODELS = ["gemini-flash-lite-latest", "gemini-3.5-flash-lite", "gemini-flash-latest"];
 
         const GEMINI_SYSTEM_PROMPT = `Tu es l'assistant virtuel officiel et bienveillant de "TwoDevs", un studio d'ingénierie web et d'intelligence artificielle fondé par deux étudiants passionnés en BUT Informatique en France.
 Ton rôle est de répondre aux questions des visiteurs avec clarté, professionnalisme et concision, et de les orienter vers la formule idéale :
@@ -1140,6 +1140,7 @@ Consignes pour tes réponses :
 
         function showTypingIndicator() {
             const container = document.getElementById('ai-chat-messages');
+            if (document.getElementById('ai-typing-indicator')) return;
             const indicator = document.createElement('div');
             indicator.id = 'ai-typing-indicator';
             indicator.className = 'flex items-start gap-2.5';
@@ -1175,65 +1176,76 @@ Consignes pour tes réponses :
                 chatHistory = chatHistory.slice(-8);
             }
 
-            // 1. Tenter d'abord l'API sécurisée Vercel (/api/chat)
-            try {
-                const apiRes = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        history: chatHistory,
-                        userQuestion: userQuestion
-                    })
-                });
+            let generatedAnswer = null;
 
-                if (apiRes.ok) {
-                    const data = await apiRes.json();
-                    if (data && data.text) {
-                        generatedAnswer = data.text;
+            try {
+                // 1. Tenter l'API Vercel (/api/chat)
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 7000);
+
+                    const apiRes = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        signal: controller.signal,
+                        body: JSON.stringify({
+                            history: chatHistory,
+                            userQuestion: userQuestion
+                        })
+                    });
+                    clearTimeout(timeoutId);
+
+                    if (apiRes.ok) {
+                        const data = await apiRes.json();
+                        if (data && data.text) {
+                            generatedAnswer = data.text;
+                        }
+                    }
+                } catch (err) {
+                    console.log("Mode direct fallback:", err.message);
+                }
+
+                // 2. Si l'API Vercel n'a pas répondu, tenter la clé locale si présente
+                if (!generatedAnswer && GEMINI_API_KEY) {
+                    for (const modelName of GEMINI_MODELS) {
+                        try {
+                            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${GEMINI_API_KEY}`;
+                            const response = await fetch(endpoint, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    system_instruction: {
+                                        parts: [{ text: GEMINI_SYSTEM_PROMPT }]
+                                    },
+                                    contents: chatHistory,
+                                    generationConfig: {
+                                        temperature: 0.7,
+                                        maxOutputTokens: 250
+                                    }
+                                })
+                            });
+
+                            if (response.ok) {
+                                const data = await response.json();
+                                const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                                if (candidate && candidate.trim()) {
+                                    generatedAnswer = candidate.trim();
+                                    break;
+                                }
+                            }
+                        } catch (e) {
+                            console.warn(`Erreur sur le modèle ${modelName}:`, e);
+                        }
                     }
                 }
             } catch (err) {
-                console.log("Mode direct fallback");
+                console.error("Erreur générale IA:", err);
+            } finally {
+                hideTypingIndicator();
             }
-
-            // 2. Si l'API Vercel n'est pas disponible (ex: test local sans serveur), tenter la clé locale
-            if (!generatedAnswer && GEMINI_API_KEY) {
-                for (const modelName of GEMINI_MODELS) {
-                    try {
-                        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${GEMINI_API_KEY}`;
-                        const response = await fetch(endpoint, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                system_instruction: {
-                                    parts: [{ text: GEMINI_SYSTEM_PROMPT }]
-                                },
-                                contents: chatHistory,
-                                generationConfig: {
-                                    temperature: 0.7,
-                                    maxOutputTokens: 250
-                                }
-                            })
-                        });
-
-                        if (response.ok) {
-                            const data = await response.json();
-                            const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                            if (candidate && candidate.trim()) {
-                                generatedAnswer = candidate.trim();
-                                break;
-                            }
-                        }
-                    } catch (e) {
-                        console.warn(`Erreur sur le modèle ${modelName}:`, e);
-                    }
-                }
-            }
-
-            hideTypingIndicator();
 
             if (!generatedAnswer) {
-                generatedAnswer = "Chez TwoDevs, nous concevons des sites vitrines modernes (dès 390 €) et des solutions sur-mesure avec assistant IA (dès 790 €), ultra-rapides et sans abonnement. N'hésitez pas à nous envoyer un message via le formulaire en bas de page pour échanger de vive voix !";
+                generatedAnswer = "Chez TwoDevs, nous concevons des sites vitrines modernes (dès 390 €) et des solutions sur-mesure avec assistant IA (dès 790 €), ultra-rapides et sans abonnement. N'hésitez pas à nous poser vos questions ou à utiliser notre simulateur de devis ci-dessous !";
             }
 
             chatHistory.push({
