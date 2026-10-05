@@ -1175,36 +1175,58 @@ Consignes pour tes réponses :
                 chatHistory = chatHistory.slice(-8);
             }
 
-            let generatedAnswer = null;
+            // 1. Tenter d'abord l'API sécurisée Vercel (/api/chat)
+            try {
+                const apiRes = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        history: chatHistory,
+                        userQuestion: userQuestion
+                    })
+                });
 
-            for (const modelName of GEMINI_MODELS) {
-                try {
-                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${GEMINI_API_KEY}`;
-                    const response = await fetch(endpoint, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            system_instruction: {
-                                parts: [{ text: GEMINI_SYSTEM_PROMPT }]
-                            },
-                            contents: chatHistory,
-                            generationConfig: {
-                                temperature: 0.7,
-                                maxOutputTokens: 250
-                            }
-                        })
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                        if (candidate && candidate.trim()) {
-                            generatedAnswer = candidate.trim();
-                            break;
-                        }
+                if (apiRes.ok) {
+                    const data = await apiRes.json();
+                    if (data && data.text) {
+                        generatedAnswer = data.text;
                     }
-                } catch (e) {
-                    console.warn(`Erreur sur le modèle ${modelName}:`, e);
+                }
+            } catch (err) {
+                console.log("Mode direct fallback");
+            }
+
+            // 2. Si l'API Vercel n'est pas disponible (ex: test local sans serveur), tenter la clé locale
+            if (!generatedAnswer && GEMINI_API_KEY) {
+                for (const modelName of GEMINI_MODELS) {
+                    try {
+                        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${GEMINI_API_KEY}`;
+                        const response = await fetch(endpoint, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                system_instruction: {
+                                    parts: [{ text: GEMINI_SYSTEM_PROMPT }]
+                                },
+                                contents: chatHistory,
+                                generationConfig: {
+                                    temperature: 0.7,
+                                    maxOutputTokens: 250
+                                }
+                            })
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                            if (candidate && candidate.trim()) {
+                                generatedAnswer = candidate.trim();
+                                break;
+                            }
+                        }
+                    } catch (e) {
+                        console.warn(`Erreur sur le modèle ${modelName}:`, e);
+                    }
                 }
             }
 
