@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TwoDevs — Création de sites web sur-mesure & accessibles</title>
-    <meta name="description" content="Création de sites internet modernes, rapides et épurés pour particuliers et entreprises par deux étudiants en BUT Informatique.">
+    <title>TwoDevs — Studio Web & Intégration IA pour Entreprises</title>
+    <meta name="description" content="TwoDevs conçoit des sites web d'exception et déploie des solutions d'Intelligence Artificielle sur-mesure pour indépendants, PME et professionnels exigeants.">
+    <meta name="keywords" content="création site web, intégration IA, assistant virtuel entreprise, chatbot IA, TwoDevs, développeur web freelance">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="TwoDevs — Studio Web & Solutions IA">
+    <meta property="og:description" content="Design minimaliste, haute performance et intégration de l'Intelligence Artificielle au service de votre croissance.">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts: Plus Jakarta Sans & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -12,277 +24,1365 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            200: '#e2e8f0',
-                            800: '#1e293b',
-                            900: '#0f172a',
-                            950: '#020617',
+                        slate: {
+                            850: '#151e2e',
+                            950: '#070a11',
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-    <!-- Google Fonts Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Optional External Config for API keys -->
+    <script src="config.js"></script>
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        /* Ambient Wave Canvas (Fixed Background) */
+        #ambient-waves {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.95;
+        }
+
+        /* Floating Cards with subtle crisp border */
+        .card-clean {
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card-clean:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 12px 32px -4px rgba(15, 23, 42, 0.09);
+            transform: translateY(-2px);
+        }
+
+        /* Input styling */
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #0f172a;
+            box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+        }
     </style>
 </head>
-<body class="bg-white text-slate-900 antialiased selection:bg-slate-900 selection:text-white flex flex-col min-h-screen">
+<body class="bg-[#f8fafc] text-slate-800 antialiased selection:bg-slate-900 selection:text-white flex flex-col min-h-screen relative overflow-x-hidden">
+
+    <!-- Living Ambient Animated Waves Canvas -->
+    <canvas id="ambient-waves"></canvas>
+
+    <!-- Top Notification Bar -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-6 text-center font-medium border-b border-slate-800 relative z-30">
+        <span class="inline-flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Intégration d'agents conversationnels IA offerte ce mois-ci sur toute formule Sur-Mesure.</span>
+            <a href="#services" class="underline text-white hover:text-slate-200 ml-1 font-semibold">Découvrir les offres &rarr;</a>
+        </span>
+    </div>
 
     <!-- Header / Navigation -->
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="text-xl font-bold tracking-tight hover:opacity-80 transition flex items-center gap-2">
-                <span class="inline-block w-3 h-3 bg-slate-900 rounded-full"></span>
-                TwoDevs
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center text-white font-bold text-sm tracking-tight shadow-sm group-hover:bg-slate-800 transition">
+                    2D
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-extrabold text-lg text-slate-900 tracking-tight flex items-center gap-1.5">
+                        TwoDevs
+                        <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200">Web & IA</span>
+                    </span>
+                    <span class="text-[11px] text-slate-500 font-medium">Studio d'Ingénierie Digitale</span>
+                </div>
             </a>
             
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-                <a href="#services" class="hover:text-slate-900 transition">Nos Formules</a>
-                <a href="#about" class="hover:text-slate-900 transition">Qui sommes-nous</a>
-                <a href="#contact" class="hover:text-slate-900 transition">Contact</a>
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
+                <a href="#services" class="hover:text-slate-900 transition-colors">Formules & Tarifs</a>
+                <a href="#solutions-ia" class="hover:text-slate-900 transition-colors flex items-center gap-1.5">
+                    <span>Solutions IA</span>
+                    <span class="text-[10px] font-bold text-slate-900 bg-slate-100 px-1.5 py-0.5 rounded">Nouveau</span>
+                </a>
+                <a href="#portfolio" class="hover:text-slate-900 transition-colors">Réalisations</a>
+                <a href="#simulator" class="hover:text-slate-900 transition-colors">Simulateur</a>
+                <a href="#method" class="hover:text-slate-900 transition-colors">Méthode</a>
+                <a href="#about" class="hover:text-slate-900 transition-colors">L'Équipe</a>
+                <a href="#faq" class="hover:text-slate-900 transition-colors">FAQ</a>
             </nav>
 
-            <a href="#contact" class="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors bg-slate-900 text-white hover:bg-slate-800 h-10 px-5 py-2">
-                Demander un devis
-            </a>
+            <!-- Actions -->
+            <div class="hidden sm:flex items-center gap-4">
+                <a href="#contact" class="inline-flex items-center justify-center rounded-xl text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 h-10 px-5 shadow-sm transition active:scale-[0.98]">
+                    Demander un devis
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-900" aria-label="Menu">
+                <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white/95 backdrop-blur-xl border-b border-slate-200 px-6 py-6 shadow-xl">
+            <div class="flex flex-col gap-4 text-base font-medium">
+                <a href="#services" class="mobile-link text-slate-700 hover:text-slate-900 py-1">Formules & Tarifs</a>
+                <a href="#solutions-ia" class="mobile-link text-slate-700 hover:text-slate-900 py-1 flex items-center justify-between">
+                    <span>Solutions IA</span>
+                    <span class="text-xs bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded">Nouveau</span>
+                </a>
+                <a href="#portfolio" class="mobile-link text-slate-700 hover:text-slate-900 py-1">Réalisations</a>
+                <a href="#simulator" class="mobile-link text-slate-700 hover:text-slate-900 py-1">Simulateur de Devis</a>
+                <a href="#method" class="mobile-link text-slate-700 hover:text-slate-900 py-1">Notre Méthode</a>
+                <a href="#about" class="mobile-link text-slate-700 hover:text-slate-900 py-1">L'Équipe</a>
+                <a href="#faq" class="mobile-link text-slate-700 hover:text-slate-900 py-1">FAQ</a>
+                <div class="pt-4 border-t border-slate-100 flex flex-col gap-3">
+                    <a href="#contact" class="mobile-link text-center font-semibold py-3 rounded-xl bg-slate-900 text-white shadow-sm">
+                        Demander un devis
+                    </a>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main class="flex-grow">
+    <main class="flex-grow relative z-10">
         <!-- Hero Section -->
-        <section class="py-24 md:py-32 border-b border-slate-100">
-            <div class="max-w-4xl mx-auto px-6 text-center">
-                <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium bg-slate-100 text-slate-800 mb-8 border border-slate-200">
-                    Développeurs web & étudiants en BUT Informatique
-                </span>
-                <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 leading-[1.15] mb-6">
-                    Des sites web simples, efficaces et conçus pour durer.
+        <section class="relative pt-20 pb-24 md:pt-32 md:pb-36 border-b border-slate-200/60 bg-transparent">
+            <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+                
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 border border-slate-200 text-slate-700 text-xs font-semibold mb-8 shadow-sm backdrop-blur-md">
+                    <span class="w-2 h-2 rounded-full bg-slate-900"></span>
+                    <span>Studio Web & Solutions d'Intelligence Artificielle</span>
+                    <span class="text-slate-300">|</span>
+                    <span class="text-slate-500 font-normal">Par deux étudiants en BUT Informatique</span>
+                </div>
+
+                <!-- Main Heading -->
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-950 leading-[1.08] mb-8 font-display">
+                    Des sites d'exception.<br>
+                    <span class="text-slate-500 font-normal">Propulsés par l'Intelligence Artificielle.</span>
                 </h1>
+
+                <!-- Subtitle -->
                 <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 font-normal leading-relaxed">
-                    Nous créons des espaces numériques épurés, rapides et parfaitement adaptés aux besoins des particuliers, artisans et entreprises.
+                    Nous concevons des sites internet rapides, élégants et intégrant des fonctionnalités d'IA concrètes : assistants de conversion 24/7, automatisations de tâches et référencement intelligent.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#services" class="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors bg-slate-900 text-white hover:bg-slate-800 h-12 px-8">
-                        Découvrir nos offres
+
+                <!-- CTA Group -->
+                <div class="flex flex-col sm:flex-row gap-3.5 justify-center items-center mb-16">
+                    <a href="#contact" class="h-12 px-7 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm shadow-md flex items-center justify-center gap-2 w-full sm:w-auto transition active:scale-[0.98]">
+                        <span>Démarrer un projet</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
-                    <a href="#about" class="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors border border-slate-200 bg-white hover:bg-slate-50 text-slate-900 h-12 px-8">
-                        En savoir plus sur nous
+                    <a href="#simulator" class="h-12 px-7 rounded-xl border border-slate-300 bg-white/90 hover:bg-white text-slate-900 font-semibold text-sm shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto backdrop-blur-md transition">
+                        <span>Estimer le coût en ligne</span>
                     </a>
+                </div>
+
+                <!-- Social Proof & Standards -->
+                <div class="pt-10 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div class="card-clean p-4 rounded-xl">
+                        <div class="text-2xl md:text-3xl font-bold font-display text-slate-900">0.8 s</div>
+                        <div class="text-xs text-slate-500 mt-1 font-medium">Temps de chargement moyen</div>
+                    </div>
+                    <div class="card-clean p-4 rounded-xl">
+                        <div class="text-2xl md:text-3xl font-bold font-display text-slate-900">100 / 100</div>
+                        <div class="text-xs text-slate-500 mt-1 font-medium">Score Google Lighthouse</div>
+                    </div>
+                    <div class="card-clean p-4 rounded-xl">
+                        <div class="text-2xl md:text-3xl font-bold font-display text-slate-900">24 / 7</div>
+                        <div class="text-xs text-slate-500 mt-1 font-medium">Agents IA en continu</div>
+                    </div>
+                    <div class="card-clean p-4 rounded-xl">
+                        <div class="text-2xl md:text-3xl font-bold font-display text-slate-900">100 %</div>
+                        <div class="text-xs text-slate-500 mt-1 font-medium">Propriétaire de votre code</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Live Interactive AI Demonstration Section -->
+        <section id="solutions-ia" class="py-24 border-b border-slate-200/60 bg-transparent">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    <!-- Left Column: Explanation -->
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 border border-slate-200 text-slate-800 text-xs font-semibold shadow-sm backdrop-blur-md">
+                            Intelligence Artificielle Pratique
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-950 tracking-tight leading-snug">
+                            Pourquoi intégrer l'IA dans votre site web dès aujourd'hui ?
+                        </h2>
+                        <p class="text-slate-600 text-base leading-relaxed">
+                            L'IA ne doit pas être un gadget. Chez TwoDevs, nous intégrons des modules IA qui résolvent de vrais enjeux commerciaux pour votre activité.
+                        </p>
+
+                        <div class="space-y-4 pt-2">
+                            <div class="flex items-start gap-3.5 card-clean p-4 rounded-xl">
+                                <div class="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center shrink-0 font-bold text-sm shadow-sm">
+                                    ✓
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900 text-sm">Assistant Commercial 24h/24</h4>
+                                    <p class="text-xs text-slate-600 mt-0.5 leading-relaxed">Un chatbot entraîné exclusivement sur votre entreprise pour répondre aux prospects, fixer des rendez-vous et récolter des coordonnées.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3.5 card-clean p-4 rounded-xl">
+                                <div class="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center shrink-0 font-bold text-sm shadow-sm">
+                                    ✓
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900 text-sm">Référencement Sémantique pour Moteurs IA</h4>
+                                    <p class="text-xs text-slate-600 mt-0.5 leading-relaxed">Optimisation de vos pages pour être recommandées par ChatGPT Search, Perplexity et le moteur génératif de Google.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3.5 card-clean p-4 rounded-xl">
+                                <div class="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center shrink-0 font-bold text-sm shadow-sm">
+                                    ✓
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900 text-sm">Automatisation de Vos Tâches Répétitives</h4>
+                                    <p class="text-xs text-slate-600 mt-0.5 leading-relaxed">Envoi automatique de devis types, synchronisation avec votre boîte mail ou votre CRM sans intervention manuelle.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Live AI Prototype Box -->
+                    <div class="lg:col-span-6">
+                        <div class="card-clean rounded-2xl overflow-hidden border border-slate-200 shadow-xl">
+                            <div class="bg-slate-900 text-white p-4 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+                                    <div>
+                                        <div class="text-xs font-bold font-display tracking-wide flex items-center gap-1.5">
+                                            <span>Assistant TwoDevs</span>
+                                            <span class="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.2 rounded border border-slate-700">Gemini IA</span>
+                                        </div>
+                                        <div class="text-[10px] text-slate-400">Intelligence Artificielle connectée en direct</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-medium flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    En Ligne
+                                </span>
+                            </div>
+
+                            <!-- Chat conversation area -->
+                            <div id="ai-chat-messages" class="p-5 h-72 overflow-y-auto space-y-4 bg-slate-50/70 text-xs text-slate-700">
+                                <div class="flex items-start gap-2.5">
+                                    <div class="w-6 h-6 rounded-md bg-slate-900 text-white flex items-center justify-center font-bold text-[10px] shrink-0">
+                                        IA
+                                    </div>
+                                    <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%] leading-relaxed text-slate-800">
+                                        Bonjour ! Je suis l'assistant virtuel de TwoDevs. Vous pouvez me poser une question sur nos délais, nos tarifs ou sur la façon dont nous pouvons intégrer une IA sur votre futur site web.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Suggested Quick Questions -->
+                            <div class="px-4 py-2.5 bg-white/95 border-t border-slate-100 flex flex-wrap gap-1.5">
+                                <button type="button" onclick="askAiQuestion('Combien de temps faut-il pour concevoir un site avec vous ?')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded-full transition">
+                                    ⏱ Délais de création ?
+                                </button>
+                                <button type="button" onclick="askAiQuestion('Que peut faire un assistant IA sur mon site ?')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded-full transition">
+                                    🤖 Que peut faire l'IA ?
+                                </button>
+                                <button type="button" onclick="askAiQuestion('Combien coûte un site web clé en main ?')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded-full transition">
+                                    💶 Tarifs indicatifs ?
+                                </button>
+                            </div>
+
+                            <!-- Chat Input Bar -->
+                            <form id="ai-chat-form" onsubmit="handleAiChatSubmit(event)" class="p-3 bg-white border-t border-slate-200 flex gap-2">
+                                <input type="text" id="ai-chat-input" placeholder="Posez une question à l'assistant..." class="flex-grow px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:outline-none focus:border-slate-900 bg-slate-50 text-slate-900">
+                                <button type="submit" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold transition">
+                                    Envoyer
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Formules Section -->
-        <section id="services" class="py-24 bg-slate-50 border-b border-slate-100">
-            <div class="max-w-6xl mx-auto px-6">
-                <div class="text-center max-w-2xl mx-auto mb-16">
-                    <h2 class="text-3xl font-bold tracking-tight mb-4">Nos Formules</h2>
-                    <p class="text-slate-600">Des tarifs transparents, adaptés aux besoins spécifiques de chaque projet, sans frais cachés.</p>
+        <!-- Portfolio / Réalisations Section -->
+        <section id="portfolio" class="py-24 border-b border-slate-200/60 bg-transparent">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 block">Nos Projets</span>
+                        <h2 class="text-3xl md:text-5xl font-bold font-display text-slate-950 tracking-tight">
+                            Réalisations Récentes
+                        </h2>
+                    </div>
+                    <p class="text-slate-600 max-w-md text-sm leading-relaxed">
+                        Des interfaces soignées, ergonomiques et débarrassées du superflu, développées pour valoriser l'image de marque de nos clients.
+                    </p>
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Formule 1 -->
-                    <div class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm flex flex-col justify-between hover:border-slate-300 transition">
-                        <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-xl font-semibold">Vitrine Essentiel</h3>
-                            </div>
-                            <p class="text-slate-600 text-sm mb-6">Parfait pour présenter votre activité rapidement avec un site monopage clair.</p>
-                            <div class="text-3xl font-bold mb-6">Sur devis</div>
-                            <ul class="space-y-3 text-sm text-slate-600 mb-8">
-                                <li class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                    Page unique (One-page)
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                    Design ultra-minimaliste
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                    Adapté aux mobiles & tablettes
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                    Formulaire de contact
-                                </li>
-                            </ul>
+                    <!-- Project 1: AI / SaaS Corporate -->
+                    <div class="card-clean rounded-2xl overflow-hidden group">
+                        <div class="aspect-[16/10] bg-slate-100 overflow-hidden relative border-b border-slate-100">
+                            <img src="assets/showcase_ai_light.jpg" alt="Cognex AI — Plateforme d'entreprise avec Assistant IA" class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300">
+                            <span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm border border-slate-200 text-slate-800 text-[11px] font-semibold px-2.5 py-1 rounded-md shadow-sm">
+                                Web & Intelligence Artificielle
+                            </span>
                         </div>
-                        <a href="#contact" onclick="selectFormula('Vitrine Essentiel')" class="inline-flex justify-center items-center rounded-lg text-sm font-medium bg-slate-100 hover:bg-slate-200 text-slate-900 h-10 w-full transition">Choisir cette formule</a>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold font-display text-slate-950 mb-1.5 group-hover:text-slate-700 transition">
+                                Cognex AI Studio
+                            </h3>
+                            <p class="text-slate-600 text-xs mb-4 leading-relaxed">
+                                Plateforme professionnelle moderne avec assistant conversationnel intégré, prise de rendez-vous automatique et tableau de bord de performance.
+                            </p>
+                            <div class="flex flex-wrap gap-1.5 text-[11px] text-slate-600">
+                                <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Chatbot LLM</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Design Suisse</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Score 100/100</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Formule 2 -->
-                    <div class="bg-white rounded-2xl p-8 border-2 border-slate-900 shadow-md flex flex-col justify-between relative">
-                        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs px-3 py-1 rounded-full font-medium">Recommandé</span>
-                        <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-xl font-semibold">Site Sur-Mesure</h3>
-                            </div>
-                            <p class="text-slate-600 text-sm mb-6">Pour les petites entreprises ou indépendants ayant besoin de plusieurs pages.</p>
-                            <div class="text-3xl font-bold mb-6">Sur devis</div>
-                            <ul class="space-y-3 text-sm text-slate-600 mb-8">
-                                <li class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                    Jusqu'à 5 pages distinctes
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                    Optimisation SEO de base
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                    Hébergement & Domaine configurés
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                    Design personnalisé & épuré
-                                </li>
-                            </ul>
+                    <!-- Project 2: Atelier Nørd -->
+                    <div class="card-clean rounded-2xl overflow-hidden group">
+                        <div class="aspect-[16/10] bg-slate-100 overflow-hidden relative border-b border-slate-100">
+                            <img src="assets/showcase_architect.jpg" alt="Atelier Nørd — Cabinet d'Architecture" class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300">
+                            <span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm border border-slate-200 text-slate-800 text-[11px] font-semibold px-2.5 py-1 rounded-md shadow-sm">
+                                Architecture & Design
+                            </span>
                         </div>
-                        <a href="#contact" onclick="selectFormula('Site Sur-Mesure')" class="inline-flex justify-center items-center rounded-lg text-sm font-medium bg-slate-900 hover:bg-slate-800 text-white h-10 w-full transition">Choisir cette formule</a>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold font-display text-slate-950 mb-1.5 group-hover:text-slate-700 transition">
+                                Atelier Nørd
+                            </h3>
+                            <p class="text-slate-600 text-xs mb-4 leading-relaxed">
+                                Portfolio d'architecte épuré au style éditorial. Mise en valeur de visuels haute résolution avec un temps de chargement inférieur à une seconde.
+                            </p>
+                            <div class="flex flex-wrap gap-1.5 text-[11px] text-slate-600">
+                                <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Grille Modulaire</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Ultra-Rapide</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">SEO International</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Formule 3 -->
-                    <div class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm flex flex-col justify-between hover:border-slate-300 transition">
-                        <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-xl font-semibold">Projet Spécifique</h3>
-                            </div>
-                            <p class="text-slate-600 text-sm mb-6">Besoins particuliers : fonctionnalités sur-mesure, refonte complète ou support.</p>
-                            <div class="text-3xl font-bold mb-6">Personnalisé</div>
-                            <ul class="space-y-3 text-sm text-slate-600 mb-8">
-                                <li class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                    Cahier des charges sur-mesure
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                    Développement web spécifique
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                    Accompagnement continu
-                                </li>
-                            </ul>
+                    <!-- Project 3: Maison Léon -->
+                    <div class="card-clean rounded-2xl overflow-hidden group">
+                        <div class="aspect-[16/10] bg-slate-100 overflow-hidden relative border-b border-slate-100">
+                            <img src="assets/showcase_bistro.jpg" alt="Maison Léon — Boulangerie & Bistro" class="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300">
+                            <span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm border border-slate-200 text-slate-800 text-[11px] font-semibold px-2.5 py-1 rounded-md shadow-sm">
+                                Artisanat & Restauration
+                            </span>
                         </div>
-                        <a href="#contact" onclick="selectFormula('Projet Spécifique')" class="inline-flex justify-center items-center rounded-lg text-sm font-medium bg-slate-100 hover:bg-slate-200 text-slate-900 h-10 w-full transition">Nous contacter</a>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold font-display text-slate-950 mb-1.5 group-hover:text-slate-700 transition">
+                                Maison Léon
+                            </h3>
+                            <p class="text-slate-600 text-xs mb-4 leading-relaxed">
+                                Vitrine artisanale chaleureuse et élégante pour une maison gourmande. Carte interactive dynamique, SEO géolocalisé et réservations simplifiées.
+                            </p>
+                            <div class="flex flex-wrap gap-1.5 text-[11px] text-slate-600">
+                                <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Référencement Local</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Mobile First</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Réservation</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-24 border-b border-slate-100">
+        <!-- Formules & Tarifs Section -->
+        <section id="services" class="py-24 border-b border-slate-200/60 bg-transparent">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 block">Nos Offres</span>
+                    <h2 class="text-3xl md:text-5xl font-bold font-display text-slate-950 tracking-tight mb-3">
+                        Tarifs Clairs & Sans Abonnement Captif
+                    </h2>
+                    <p class="text-slate-600 text-sm md:text-base">
+                        Chaque formule inclut la cession intégrale du code source et l'optimisation technique.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8 items-stretch">
+                    <!-- Formule 1: Vitrine Essentiel -->
+                    <div class="card-clean rounded-2xl p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-xl font-bold font-display text-slate-900">Vitrine Essentiel</h3>
+                                <span class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 text-slate-700 border border-slate-200">One-Page</span>
+                            </div>
+                            <p class="text-slate-600 text-xs mb-6 leading-relaxed">
+                                La solution parfaite pour les artisans et indépendants souhaitant une présence en ligne soignée, rapide et immédiatement opérationnelle.
+                            </p>
+                            <div class="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                <span class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold block">Forfait unique</span>
+                                <div class="text-3xl font-extrabold text-slate-900 font-display mt-0.5">390 €</div>
+                                <span class="text-xs text-slate-500">Paiement en 2 fois possible</span>
+                            </div>
+                            <ul class="space-y-3 text-xs text-slate-700 mb-8">
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Site One-Page épuré & ultra-rapide</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Adaptation parfaite Mobile, Tablette & Ordinateur</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Formulaire de contact avec alertes instantanées</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Optimisation SEO pour Google & Google Maps</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Livraison rapide en 7 jours</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#contact" onclick="selectFormula('Vitrine Essentiel')" class="w-full py-3 px-4 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-900 font-semibold text-center text-xs transition">
+                            Sélectionner cette formule
+                        </a>
+                    </div>
+
+                    <!-- Formule 2: Sur-Mesure + Assistant IA (POPULAIRE) -->
+                    <div class="card-clean rounded-2xl p-8 flex flex-col justify-between border-2 border-slate-900 shadow-xl relative bg-white">
+                        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[11px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-sm">
+                            ★ Formule Recommandée
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-4 mt-2">
+                                <h3 class="text-xl font-bold font-display text-slate-900">Sur-Mesure & IA</h3>
+                                <span class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-900 text-white">Multi-Pages + IA</span>
+                            </div>
+                            <p class="text-slate-600 text-xs mb-6 leading-relaxed">
+                                Pour les entreprises et professionnels qui souhaitent une image prestigieuse et un agent IA dédié pour convertir les prospects 24h/24.
+                            </p>
+                            <div class="mb-6 p-4 rounded-xl bg-slate-100/70 border border-slate-200">
+                                <span class="text-[11px] uppercase tracking-wider text-slate-600 font-semibold block">Forfait complet</span>
+                                <div class="text-3xl font-extrabold text-slate-950 font-display mt-0.5">790 €</div>
+                                <span class="text-xs text-slate-600 font-medium">Assistant IA personnalisé inclus</span>
+                            </div>
+                            <ul class="space-y-3 text-xs text-slate-800 mb-8">
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span class="font-semibold">Jusqu'à 5 pages complètes (Accueil, Services, À propos, Réalisations, Contact)</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span class="font-semibold text-slate-900">Agent IA interactif sur-mesure configuré sur vos données</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Design suisse minimaliste, moderne et ergonomique</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>SEO avancé & indexation pour moteurs sémantiques IA</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Configuration nom de domaine & certificat HTTPS</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>30 jours d'accompagnement & retouches offertes</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#contact" onclick="selectFormula('Site Sur-Mesure')" class="w-full py-3.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-center text-xs shadow-md transition">
+                            Choisir la Formule Sur-Mesure & IA
+                        </a>
+                    </div>
+
+                    <!-- Formule 3: Projet Spécifique & Automatisation -->
+                    <div class="card-clean rounded-2xl p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-xl font-bold font-display text-slate-900">IA & Automatisation</h3>
+                                <span class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 text-slate-700 border border-slate-200">Sur Mesure</span>
+                            </div>
+                            <p class="text-slate-600 text-xs mb-6 leading-relaxed">
+                                Développement d'applications web spécifiques, intégration d'APIs d'intelligence artificielle complexes et flux d'automatisation d'entreprise.
+                            </p>
+                            <div class="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                <span class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold block">Tarification</span>
+                                <div class="text-3xl font-extrabold text-slate-900 font-display mt-0.5">Sur Cahier des Charges</div>
+                                <span class="text-xs text-slate-500">Devis détaillé sous 24h</span>
+                            </div>
+                            <ul class="space-y-3 text-xs text-slate-700 mb-8">
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Workflows automatisés (Make / n8n / Python)</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Intégration modèles LLM (OpenAI, Anthropic Claude, Gemini)</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Portail client ou dashboard de gestion interne</span>
+                                </li>
+                                <li class="flex items-center gap-2.5">
+                                    <svg class="w-4 h-4 text-slate-900 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Audit de performance, sécurité et RGPD</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#contact" onclick="selectFormula('Projet Spécifique')" class="w-full py-3 px-4 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-900 font-semibold text-center text-xs transition">
+                            Discuter d'un projet spécifique
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simulator Section (Clean Minimalist Style) -->
+        <section id="simulator" class="py-24 border-b border-slate-200/60 bg-transparent">
             <div class="max-w-4xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 block">Simulateur</span>
+                    <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-950 tracking-tight mb-2">
+                        Configurez votre projet en 1 minute
+                    </h2>
+                    <p class="text-slate-600 text-sm">
+                        Ajustez les options souhaitées pour obtenir instantanément une estimation indicative.
+                    </p>
+                </div>
+
+                <div class="card-clean p-8 md:p-10 rounded-2xl">
+                    <!-- Step 1 -->
+                    <div class="mb-8">
+                        <label class="block text-xs uppercase font-bold text-slate-500 tracking-wider mb-3">1. Format du site</label>
+                        <div class="grid sm:grid-cols-3 gap-3.5" id="sim-type-group">
+                            <button type="button" data-type="onepage" data-price="390" data-label="Vitrine Essentiel (One-page)" class="sim-type-btn text-left p-4 rounded-xl border-2 border-slate-900 bg-slate-50 transition">
+                                <div class="font-bold text-slate-900 text-sm">One-Page Vitrine</div>
+                                <div class="text-xs text-slate-500 mt-0.5">Présentation concise</div>
+                                <div class="font-bold text-slate-900 text-xs mt-2">Base : 390 €</div>
+                            </button>
+                            <button type="button" data-type="multipage" data-price="790" data-label="Sur-Mesure & IA (Jusqu'à 5 pages)" class="sim-type-btn text-left p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-300 transition">
+                                <div class="font-bold text-slate-900 text-sm">Sur-Mesure + IA</div>
+                                <div class="text-xs text-slate-500 mt-0.5">Multi-pages + Assistant</div>
+                                <div class="font-bold text-slate-900 text-xs mt-2">Base : 790 €</div>
+                            </button>
+                            <button type="button" data-type="custom" data-price="1200" data-label="Application / Automatisation Sur-Mesure" class="sim-type-btn text-left p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-300 transition">
+                                <div class="font-bold text-slate-900 text-sm">Application Web</div>
+                                <div class="text-xs text-slate-500 mt-0.5">Besoins complexes</div>
+                                <div class="font-bold text-slate-900 text-xs mt-2">Base : 1 200 €</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="mb-8">
+                        <label class="block text-xs uppercase font-bold text-slate-500 tracking-wider mb-3">2. Modules & Options complémentaires</label>
+                        <div class="grid sm:grid-cols-2 gap-3.5">
+                            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-slate-50 cursor-pointer transition">
+                                <input type="checkbox" data-price="150" data-name="Assistant IA entraîné sur mesure" class="sim-addon-checkbox mt-0.5 accent-slate-900 w-4 h-4 rounded">
+                                <div>
+                                    <div class="font-semibold text-xs text-slate-900">Module Assistant IA (+150 €)</div>
+                                    <div class="text-[11px] text-slate-500">Chatbot conversationnel connecté à votre documentation d'entreprise</div>
+                                </div>
+                            </label>
+
+                            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-slate-50 cursor-pointer transition">
+                                <input type="checkbox" data-price="120" data-name="Audit & Optimisation SEO Moteurs IA" class="sim-addon-checkbox mt-0.5 accent-slate-900 w-4 h-4 rounded">
+                                <div>
+                                    <div class="font-semibold text-xs text-slate-900">Référencement Sémantique (+120 €)</div>
+                                    <div class="text-[11px] text-slate-500">Structuration pour moteurs traditionnels et nouveaux moteurs IA</div>
+                                </div>
+                            </label>
+
+                            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-slate-50 cursor-pointer transition">
+                                <input type="checkbox" data-price="140" data-name="Identité visuelle & Logo" class="sim-addon-checkbox mt-0.5 accent-slate-900 w-4 h-4 rounded">
+                                <div>
+                                    <div class="font-semibold text-xs text-slate-900">Identité Graphique (+140 €)</div>
+                                    <div class="text-[11px] text-slate-500">Logo épuré, choix typographiques et palette harmonieuse</div>
+                                </div>
+                            </label>
+
+                            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-slate-50 cursor-pointer transition">
+                                <input type="checkbox" data-price="180" data-name="Rédaction de contenus professionnels" class="sim-addon-checkbox mt-0.5 accent-slate-900 w-4 h-4 rounded">
+                                <div>
+                                    <div class="font-semibold text-xs text-slate-900">Rédaction Copywriting (+180 €)</div>
+                                    <div class="text-[11px] text-slate-500">Textes impactants rédigés pour susciter la confiance de vos clients</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Summary & Transfer -->
+                    <div class="p-6 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Estimation Indicative</span>
+                            <div class="flex items-baseline gap-2">
+                                <span id="sim-total-price" class="text-3xl font-extrabold font-display text-slate-950">390 €</span>
+                                <span class="text-xs text-slate-500">TTC tout compris</span>
+                            </div>
+                            <span id="sim-summary-text" class="text-xs text-slate-700 font-medium block mt-0.5">Formule : Vitrine Essentiel (One-page)</span>
+                        </div>
+
+                        <button id="sim-transfer-btn" class="h-11 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm flex items-center gap-2 transition">
+                            <span>Reporter dans le formulaire</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notre Méthode en 4 Étapes -->
+        <section id="method" class="py-24 border-b border-slate-200/60 bg-transparent">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 block">Processus</span>
+                    <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-950 tracking-tight mb-3">
+                        Une collaboration simple, directe et efficace
+                    </h2>
+                    <p class="text-slate-600 text-sm">Pas de réunions interminables. Un cadrage précis et des étapes claires.</p>
+                </div>
+
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="card-clean p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs font-bold font-mono text-slate-400 mb-3">ÉTAPE 01</div>
+                            <h3 class="font-bold text-slate-900 text-base mb-2 font-display">Écoute & Cadrage</h3>
+                            <p class="text-slate-600 text-xs leading-relaxed">
+                                Un échange de 20 minutes pour comprendre votre cible, votre univers et valider un devis clair sans surprise.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] font-medium text-slate-500">
+                            Durée : 24h à 48h
+                        </div>
+                    </div>
+
+                    <div class="card-clean p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs font-bold font-mono text-slate-400 mb-3">ÉTAPE 02</div>
+                            <h3 class="font-bold text-slate-900 text-base mb-2 font-display">Maquette & Ergonomie</h3>
+                            <p class="text-slate-600 text-xs leading-relaxed">
+                                Conception du design épuré et validation avec vous avant tout développement technique.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] font-medium text-slate-500">
+                            Ajustements illimités
+                        </div>
+                    </div>
+
+                    <div class="card-clean p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs font-bold font-mono text-slate-400 mb-3">ÉTAPE 03</div>
+                            <h3 class="font-bold text-slate-900 text-base mb-2 font-display">Développement & IA</h3>
+                            <p class="text-slate-600 text-xs leading-relaxed">
+                                Codage propre, léger et configuration de vos modules IA (chatbot, formulaires, automatisation).
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] font-medium text-slate-500">
+                            Lighthouse 100/100
+                        </div>
+                    </div>
+
+                    <div class="card-clean p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs font-bold font-mono text-slate-400 mb-3">ÉTAPE 04</div>
+                            <h3 class="font-bold text-slate-900 text-base mb-2 font-display">Mise en Ligne & Suivi</h3>
+                            <p class="text-slate-600 text-xs leading-relaxed">
+                                Déploiement sécurisé sur votre nom de domaine et accompagnement gratuit pendant 30 jours.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] font-medium text-slate-500">
+                            Clé en main
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- L'Équipe TwoDevs Section -->
+        <section id="about" class="py-24 border-b border-slate-200/60 bg-transparent">
+            <div class="max-w-5xl mx-auto px-6">
                 <div class="grid md:grid-cols-12 gap-12 items-center">
                     <div class="md:col-span-5">
-                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2 block">L'équipe</span>
-                        <h2 class="text-3xl font-bold tracking-tight text-slate-900 mb-6">Qui sommes-nous ?</h2>
-                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                            <p class="text-2xl font-semibold text-slate-900 mb-1">TwoDevs</p>
-                            <p class="text-sm text-slate-600">Binôme de développeurs web</p>
-                            <div class="mt-4 pt-4 border-t border-slate-200/60 flex items-center gap-2 text-xs font-medium text-slate-500">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 block">À propos</span>
+                        <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-950 tracking-tight mb-6">
+                            L'expertise d'un binôme dédié à votre succès.
+                        </h2>
+                        <div class="card-clean p-6 rounded-2xl bg-white border border-slate-200">
+                            <div class="font-bold text-slate-900 text-base font-display mb-1">TwoDevs Studio</div>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                Binôme d'étudiants développeurs en <strong>BUT Informatique</strong> (spécialisation conception et développement d'applications & IA).
+                            </p>
+                            <div class="flex items-center gap-2 text-xs font-semibold text-emerald-700">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                                Étudiants en BUT Informatique
+                                Basés en France • Réactifs sous 2h
                             </div>
                         </div>
                     </div>
-                    <div class="md:col-span-7 space-y-4 text-slate-600 leading-relaxed">
-                        <p>
-                            Nous sommes deux étudiants passionnés en <strong>BUT Informatique</strong>. Durant nos études, nous avons appris à concevoir des applications web modernes, robustes et bien structurées.
-                        </p>
-                        <p>
-                            Notre philosophie est simple : <strong>privilégier l'essentiel</strong>. Pas de fioritures inutiles, pas de sites lourds qui mettent du temps à charger. Nous proposons des solutions claires, rapides et adaptées aux besoins réels de nos clients.
-                        </p>
-                        <p>
-                            En travaillant avec nous, vous bénéficiez d'un contact direct, d'une grande réactivité et de tarifs adaptés, tout en soutenant deux futurs professionnels du secteur.
-                        </p>
+
+                    <div class="md:col-span-7 space-y-4 text-slate-600 text-sm leading-relaxed">
+                        <div class="card-clean p-5 rounded-xl">
+                            <h4 class="font-bold text-slate-900 mb-1">Contact direct avec les développeurs</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Pas de commerciaux, pas de chefs de projets intermédiaires. Vous parlez en direct aux personnes qui réalisent votre site web et vos outils d'IA.
+                            </p>
+                        </div>
+
+                        <div class="card-clean p-5 rounded-xl">
+                            <h4 class="font-bold text-slate-900 mb-1">Des technologies actuelles, durables et rapides</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Nous évitons les usines à gaz lourdes et coûteuses en maintenance. Nos sites sont légers, pérennes et simples à administrer.
+                            </p>
+                        </div>
+
+                        <div class="card-clean p-5 rounded-xl">
+                            <h4 class="font-bold text-slate-900 mb-1">Un rapport qualité/prix imbattable</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                En tant que futurs diplômés passionnés, nous offrons une qualité d'ingénierie logicielle élevée à des tarifs adaptés aux réalités des TPE/PME et créateurs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-24 border-b border-slate-200/60 bg-transparent">
+            <div class="max-w-3xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 block">Aide & Réponses</span>
+                    <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-950 tracking-tight mb-2">
+                        Questions fréquentes
+                    </h2>
+                    <p class="text-slate-600 text-sm">
+                        Tout ce que vous devez savoir avant de démarrer.
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="card-clean rounded-xl overflow-hidden">
+                        <button type="button" class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between text-sm font-bold text-slate-900 hover:text-slate-700 transition" aria-expanded="false">
+                            <span>L'intégration d'un assistant IA nécessite-t-elle des compétences techniques de ma part ?</span>
+                            <svg class="faq-icon w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="faq-content hidden px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                            Absolument aucune. Nous nous chargeons de l'intégralité de la configuration technique : apprentissage sur vos données, intégration sur votre site et tests de conformité. Vous recevez un outil 100% prêt à l'emploi.
+                        </div>
+                    </div>
+
+                    <div class="card-clean rounded-xl overflow-hidden">
+                        <button type="button" class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between text-sm font-bold text-slate-900 hover:text-slate-700 transition" aria-expanded="false">
+                            <span>Combien de temps faut-il pour créer mon site web ?</span>
+                            <svg class="faq-icon w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="faq-content hidden px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                            Pour un site vitrine <strong>Vitrine Essentiel</strong>, le délai est de <strong>7 jours ouvrés</strong> à compter de la réception de vos informations. Pour la formule <strong>Sur-Mesure & IA</strong>, comptez en moyenne <strong>2 semaines</strong>.
+                        </div>
+                    </div>
+
+                    <div class="card-clean rounded-xl overflow-hidden">
+                        <button type="button" class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between text-sm font-bold text-slate-900 hover:text-slate-700 transition" aria-expanded="false">
+                            <span>Le site et le code source m'appartiennent-ils ?</span>
+                            <svg class="faq-icon w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="faq-content hidden px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                            Oui, à 100%. Vous êtes propriétaire exclusif de l'intégralité des fichiers, visuels et noms de domaine. Il n'y a aucun abonnement captif chez nous.
+                        </div>
+                    </div>
+
+                    <div class="card-clean rounded-xl overflow-hidden">
+                        <button type="button" class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between text-sm font-bold text-slate-900 hover:text-slate-700 transition" aria-expanded="false">
+                            <span>Comment se déroule la réservation du nom de domaine ?</span>
+                            <svg class="faq-icon w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="faq-content hidden px-6 pb-5 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                            Nous vous assistons pas à pas pour que le nom de domaine soit acheté directement à votre propre nom auprès d'un registrar réputé (environ 10 €/an seulement).
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-24 bg-slate-50">
+        <section id="contact" class="py-24 bg-transparent">
             <div class="max-w-2xl mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 mb-4">Parlons de votre projet</h2>
-                    <p class="text-slate-600">Remplissez le formulaire ci-dessous pour nous expliquer vos besoins. Nous vous répondrons sous 24h.</p>
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 block">Contact</span>
+                    <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-950 tracking-tight mb-2">
+                        Parlons de votre projet
+                    </h2>
+                    <p class="text-slate-600 text-sm">
+                        Recevez une réponse personnalisée et un devis clair sous 24h ouvrées.
+                    </p>
                 </div>
 
-                <form action="https://api.web3forms.com/submit" method="POST" class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm space-y-6">
-                    <!-- Clé Web3Forms -->
-                    <input type="hidden" name="access_key" value="35d0e0af-1f1d-45b4-90f4-9d2b78c07919">
-                    <input type="hidden" name="subject" value="Nouvelle demande de devis — TwoDevs">
-                    <input type="hidden" name="from_name" value="TwoDevs Web">
+                <div class="card-clean p-8 rounded-2xl">
+                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-5">
+                        <!-- Web3Forms integration -->
+                        <input type="hidden" name="access_key" value="35d0e0af-1f1d-45b4-90f4-9d2b78c07919">
+                        <input type="hidden" name="subject" value="Nouvelle demande de devis — TwoDevs">
+                        <input type="hidden" name="from_name" value="TwoDevs Studio">
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-slate-700 mb-2">Votre nom / Entreprise</label>
-                            <input type="text" id="name" name="nom" required placeholder="Jean Dupont" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 transition text-sm">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="name" class="block text-xs font-bold text-slate-700 mb-1.5">Nom ou Entreprise *</label>
+                                <input type="text" id="name" name="nom" required placeholder="Ex: Thomas Laurent" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 placeholder-slate-400">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-xs font-bold text-slate-700 mb-1.5">Adresse e-mail *</label>
+                                <input type="email" id="email" name="email" required placeholder="thomas@entreprise.fr" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 placeholder-slate-400">
+                            </div>
                         </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="phone" class="block text-xs font-bold text-slate-700 mb-1.5">Téléphone (Optionnel)</label>
+                                <input type="tel" id="phone" name="telephone" placeholder="06 00 00 00 00" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 placeholder-slate-400">
+                            </div>
+                            <div>
+                                <label for="formula" class="block text-xs font-bold text-slate-700 mb-1.5">Formule souhaitée</label>
+                                <select id="formula" name="formule" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900">
+                                    <option value="Non spécifié">Sélectionnez une formule...</option>
+                                    <option value="Vitrine Essentiel">Vitrine Essentiel (390 €)</option>
+                                    <option value="Site Sur-Mesure">Sur-Mesure & IA (790 €)</option>
+                                    <option value="Projet Spécifique">IA & Automatisation Sur-Mesure</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div>
-                            <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Adresse e-mail</label>
-                            <input type="email" id="email" name="email" required placeholder="jean@exemple.fr" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 transition text-sm">
+                            <label for="message" class="block text-xs font-bold text-slate-700 mb-1.5">Décrivez votre activité et vos besoins *</label>
+                            <textarea id="message" name="message" rows="4" required placeholder="Expliquez-nous brièvement votre activité, vos objectifs ou vos éventuelles questions..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 placeholder-slate-400 resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="w-full py-3.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 transition active:scale-[0.99]">
+                            <span id="btn-text">Envoyer ma demande de devis</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </button>
+                    </form>
+
+                    <div id="form-feedback" class="hidden mt-4 p-3.5 rounded-xl text-center text-xs font-semibold"></div>
+
+                    <div class="mt-6 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+                        <div>
+                            Email direct : <a href="mailto:twodevs@outlook.fr" class="text-slate-900 font-semibold underline">twodevs@outlook.fr</a>
+                        </div>
+                        <div class="text-emerald-700 font-medium flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Réponse garantie sous 24h
                         </div>
                     </div>
-
-                    <div>
-                        <label for="formula" class="block text-sm font-medium text-slate-700 mb-2">Formule souhaitée</label>
-                        <select id="formula" name="formule" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 transition text-sm bg-white">
-                            <option value="Non spécifié">Sélectionnez une option...</option>
-                            <option value="Vitrine Essentiel">Vitrine Essentiel</option>
-                            <option value="Site Sur-Mesure">Site Sur-Mesure</option>
-                            <option value="Projet Spécifique">Projet Spécifique</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-slate-700 mb-2">Décrivez brièvement votre projet</label>
-                        <textarea id="message" name="message" rows="4" required placeholder="Expliquez-nous vos besoins, vos délais ou vos questions..." class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 transition text-sm resize-none"></textarea>
-                    </div>
-
-                    <button type="submit" class="w-full inline-flex justify-center items-center rounded-lg text-sm font-medium bg-slate-900 hover:bg-slate-800 text-white h-12 transition">
-                        Envoyer la demande
-                    </button>
-                </form>
-
-                <div class="mt-8 text-center text-sm text-slate-500">
-                    Ou écrivez-nous directement à <a href="mailto:twodevs@outlook.fr" class="text-slate-900 underline font-medium">twodevs@outlook.fr</a>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-100 py-12">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-2 font-bold text-slate-900">
-                <span class="w-2.5 h-2.5 bg-slate-900 rounded-full"></span>
-                TwoDevs
+    <footer class="bg-white/90 backdrop-blur-md border-t border-slate-200 py-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-7 h-7 rounded-lg bg-slate-900 flex items-center justify-center text-white font-bold text-xs">
+                    2D
+                </div>
+                <div class="text-xs text-slate-600">
+                    <span class="font-bold text-slate-900">TwoDevs</span> — Création de sites internet & solutions d'intelligence artificielle.
+                </div>
             </div>
-            <p class="text-xs text-slate-500">
-                &copy; TwoDevs. Tous droits réservés. Étudiants en BUT Informatique.
+
+            <div class="flex items-center gap-6 text-xs text-slate-500">
+                <a href="#services" class="hover:text-slate-900 transition">Formules</a>
+                <a href="#solutions-ia" class="hover:text-slate-900 transition">Solutions IA</a>
+                <a href="#portfolio" class="hover:text-slate-900 transition">Réalisations</a>
+                <a href="#contact" class="hover:text-slate-900 transition">Contact</a>
+            </div>
+
+            <p class="text-xs text-slate-400">
+                &copy; <span id="current-year"></span> TwoDevs. Tous droits réservés.
             </p>
         </div>
     </footer>
 
+    <!-- Interactive Logic Scripts -->
     <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // -------------------------------------------------------------
+        // LIVING CONTINUOUS WAVES ANIMATION (Clear, Visible & Elegant)
+        // -------------------------------------------------------------
+        (function initVisibleWaves() {
+            const canvas = document.getElementById('ambient-waves');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let w = 0, h = 0;
+            let time = 0;
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            // Distinct, elegant sine waves flowing across the canvas
+            // Matching the DA: slate, soft blue, subtle indigo & teal accents
+            const waveLayers = [
+                {
+                    yRatio: 0.22,
+                    amplitude: 55,
+                    freq: 0.0035,
+                    speed: 0.012,
+                    fillGrad: ['rgba(99, 102, 241, 0.10)', 'rgba(99, 102, 241, 0.01)'],
+                    lineColor: 'rgba(99, 102, 241, 0.40)',
+                    lineWidth: 2
+                },
+                {
+                    yRatio: 0.42,
+                    amplitude: 70,
+                    freq: 0.0025,
+                    speed: -0.009,
+                    fillGrad: ['rgba(59, 130, 246, 0.12)', 'rgba(59, 130, 246, 0.02)'],
+                    lineColor: 'rgba(37, 99, 235, 0.45)',
+                    lineWidth: 2.2
+                },
+                {
+                    yRatio: 0.62,
+                    amplitude: 60,
+                    freq: 0.0030,
+                    speed: 0.014,
+                    fillGrad: ['rgba(14, 165, 233, 0.12)', 'rgba(14, 165, 233, 0.02)'],
+                    lineColor: 'rgba(2, 132, 199, 0.40)',
+                    lineWidth: 2
+                },
+                {
+                    yRatio: 0.82,
+                    amplitude: 50,
+                    freq: 0.0022,
+                    speed: -0.011,
+                    fillGrad: ['rgba(100, 116, 139, 0.14)', 'rgba(100, 116, 139, 0.02)'],
+                    lineColor: 'rgba(71, 85, 105, 0.45)',
+                    lineWidth: 2
+                }
+            ];
+
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                time += 1;
+
+                waveLayers.forEach((layer, idx) => {
+                    const baseY = h * layer.yRatio;
+
+                    // Draw filled wave ribbon
+                    ctx.beginPath();
+                    ctx.moveTo(0, h);
+                    ctx.lineTo(0, baseY);
+
+                    for (let x = 0; x <= w; x += 8) {
+                        const y = baseY +
+                            Math.sin(x * layer.freq + time * layer.speed + idx * 1.2) * layer.amplitude +
+                            Math.cos(x * (layer.freq * 0.5) + time * (layer.speed * 0.8)) * (layer.amplitude * 0.35);
+                        ctx.lineTo(x, y);
+                    }
+
+                    ctx.lineTo(w, h);
+                    ctx.closePath();
+
+                    const gradient = ctx.createLinearGradient(0, baseY - layer.amplitude, 0, h);
+                    gradient.addColorStop(0, layer.fillGrad[0]);
+                    gradient.addColorStop(1, layer.fillGrad[1]);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+
+                    // Draw clear crisp wave crest line
+                    ctx.beginPath();
+                    for (let x = 0; x <= w; x += 8) {
+                        const y = baseY +
+                            Math.sin(x * layer.freq + time * layer.speed + idx * 1.2) * layer.amplitude +
+                            Math.cos(x * (layer.freq * 0.5) + time * (layer.speed * 0.8)) * (layer.amplitude * 0.35);
+                        if (x === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.strokeStyle = layer.lineColor;
+                    ctx.lineWidth = layer.lineWidth;
+                    ctx.stroke();
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            requestAnimationFrame(animate);
+        })();
+
+        // Formula selection helper
         function selectFormula(formulaName) {
             const selectElement = document.getElementById('formula');
             if (selectElement) {
                 selectElement.value = formulaName;
             }
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.contains('hidden');
+                mobileMenu.classList.toggle('hidden', !isHidden);
+                menuIconOpen.classList.toggle('hidden', isHidden);
+                menuIconClose.classList.toggle('hidden', !isHidden);
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    menuIconOpen.classList.remove('hidden');
+                    menuIconClose.classList.add('hidden');
+                });
+            });
+        }
+
+        // -------------------------------------------------------------
+        // LIVE GOOGLE GEMINI INTELLIGENCE INTEGRATION
+        // -------------------------------------------------------------
+        // Load key from config.js (or localStorage for custom deployments)
+        const GEMINI_API_KEY = (typeof window !== 'undefined' && window.GEMINI_API_KEY && window.GEMINI_API_KEY !== 'VOTRE_CLE_API_GEMINI') 
+            ? window.GEMINI_API_KEY 
+            : (typeof localStorage !== 'undefined' ? (localStorage.getItem('gemini_api_key') || '') : '');
+        const GEMINI_MODELS = ["gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-3.5-flash"];
+
+        const GEMINI_SYSTEM_PROMPT = `Tu es l'assistant virtuel officiel et bienveillant de "TwoDevs", un studio d'ingénierie web et d'intelligence artificielle fondé par deux étudiants passionnés en BUT Informatique en France.
+Ton rôle est de répondre aux questions des visiteurs avec clarté, professionnalisme et concision, et de les orienter vers la formule idéale :
+
+Nos offres et formules :
+1. "Vitrine Essentiel" (390 €) : Site One-Page moderne, ultra-rapide, responsive mobile/tablette, formulaire de contact, référencement de base Google, livraison express en 7 jours.
+2. "Sur-Mesure & IA" (790 € - Notre formule phare) : Site multi-pages complet (jusqu'à 5 pages), design ergonomique sur-mesure, assistant IA interactif intégré et configuré sur les données de l'entreprise, SEO sémantique pour moteurs IA, livraison ~2 semaines.
+3. "IA & Automatisation Sur-Mesure" (Sur devis) : Applications web spécifiques, intégrations d'APIs IA, workflows automatisés (Make / n8n / Python), dashboards de gestion.
+
+Nos atouts majeurs :
+- Échange direct avec les développeurs (zéro intermédiaire, pas de surcoût d'agence).
+- Code 100% propriétaire remis au client (zéro abonnement forcé).
+- Performance maximale garantie (Score Google Lighthouse 100/100, temps de chargement < 0.8s).
+- Contact direct : email twodevs@outlook.fr ou formulaire de contact au bas de la page.
+
+Consignes pour tes réponses :
+- Reste toujours concis, chaleureux et percutant (2 à 4 phrases maximum par réponse, parfaitement adaptées à un format messagerie).
+- Si on te demande un devis ou une estimation, donne les prix indicatifs et propose d'utiliser le simulateur plus bas ou d'envoyer un message via le formulaire.
+- Réponds en français fluide et soigné.`;
+
+        let chatHistory = [];
+
+        function addAiMessage(text, isUser = false) {
+            const container = document.getElementById('ai-chat-messages');
+            const row = document.createElement('div');
+            row.className = isUser ? 'flex items-start gap-2.5 justify-end' : 'flex items-start gap-2.5';
+
+            if (isUser) {
+                row.innerHTML = `
+                    <div class="bg-slate-900 text-white p-3 rounded-2xl rounded-tr-sm max-w-[85%] leading-relaxed text-xs">
+                        ${text}
+                    </div>
+                    <div class="w-6 h-6 rounded-md bg-slate-200 text-slate-800 flex items-center justify-center font-bold text-[10px] shrink-0">
+                        Vous
+                    </div>
+                `;
+            } else {
+                row.innerHTML = `
+                    <div class="w-6 h-6 rounded-md bg-slate-900 text-white flex items-center justify-center font-bold text-[10px] shrink-0">
+                        IA
+                    </div>
+                    <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%] leading-relaxed text-slate-800 text-xs">
+                        ${text}
+                    </div>
+                `;
+            }
+
+            container.appendChild(row);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const container = document.getElementById('ai-chat-messages');
+            const indicator = document.createElement('div');
+            indicator.id = 'ai-typing-indicator';
+            indicator.className = 'flex items-start gap-2.5';
+            indicator.innerHTML = `
+                <div class="w-6 h-6 rounded-md bg-slate-900 text-white flex items-center justify-center font-bold text-[10px] shrink-0">
+                    IA
+                </div>
+                <div class="bg-white border border-slate-200 px-3.5 py-2.5 rounded-2xl rounded-tl-sm shadow-sm text-slate-500 text-xs flex items-center gap-1.5">
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce"></span>
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce [animation-delay:0.2s]"></span>
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce [animation-delay:0.4s]"></span>
+                    <span class="text-[10px] text-slate-400 ml-1">Réflexion en cours...</span>
+                </div>
+            `;
+            container.appendChild(indicator);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('ai-typing-indicator');
+            if (indicator) indicator.remove();
+        }
+
+        async function queryGemini(userQuestion) {
+            showTypingIndicator();
+
+            chatHistory.push({
+                role: 'user',
+                parts: [{ text: userQuestion }]
+            });
+
+            if (chatHistory.length > 8) {
+                chatHistory = chatHistory.slice(-8);
+            }
+
+            let generatedAnswer = null;
+
+            for (const modelName of GEMINI_MODELS) {
+                try {
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${GEMINI_API_KEY}`;
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            system_instruction: {
+                                parts: [{ text: GEMINI_SYSTEM_PROMPT }]
+                            },
+                            contents: chatHistory,
+                            generationConfig: {
+                                temperature: 0.7,
+                                maxOutputTokens: 250
+                            }
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                        if (candidate && candidate.trim()) {
+                            generatedAnswer = candidate.trim();
+                            break;
+                        }
+                    }
+                } catch (e) {
+                    console.warn(`Erreur sur le modèle ${modelName}:`, e);
+                }
+            }
+
+            hideTypingIndicator();
+
+            if (!generatedAnswer) {
+                generatedAnswer = "Chez TwoDevs, nous concevons des sites vitrines modernes (dès 390 €) et des solutions sur-mesure avec assistant IA (dès 790 €), ultra-rapides et sans abonnement. N'hésitez pas à nous envoyer un message via le formulaire en bas de page pour échanger de vive voix !";
+            }
+
+            chatHistory.push({
+                role: 'model',
+                parts: [{ text: generatedAnswer }]
+            });
+
+            addAiMessage(generatedAnswer, false);
+        }
+
+        function askAiQuestion(question) {
+            addAiMessage(question, true);
+            queryGemini(question);
+        }
+
+        function handleAiChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('ai-chat-input');
+            const val = input.value.trim();
+            if (!val) return;
+            input.value = '';
+            askAiQuestion(val);
+        }
+
+        // Simulator Logic
+        const simTypeBtns = document.querySelectorAll('.sim-type-btn');
+        const simAddonCheckboxes = document.querySelectorAll('.sim-addon-checkbox');
+        const simTotalPriceEl = document.getElementById('sim-total-price');
+        const simSummaryTextEl = document.getElementById('sim-summary-text');
+        const simTransferBtn = document.getElementById('sim-transfer-btn');
+
+        let currentBasePrice = 390;
+        let currentTypeLabel = 'Vitrine Essentiel (One-page)';
+
+        function updateSimulator() {
+            let total = currentBasePrice;
+            const activeAddons = [];
+
+            simAddonCheckboxes.forEach(cb => {
+                if (cb.checked) {
+                    total += parseInt(cb.dataset.price, 10);
+                    activeAddons.push(cb.dataset.name);
+                }
+            });
+
+            simTotalPriceEl.textContent = total + ' €';
+
+            if (activeAddons.length > 0) {
+                simSummaryTextEl.textContent = currentTypeLabel + ' + ' + activeAddons.length + ' option(s)';
+            } else {
+                simSummaryTextEl.textContent = 'Formule : ' + currentTypeLabel;
+            }
+        }
+
+        simTypeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                simTypeBtns.forEach(b => {
+                    b.classList.remove('border-2', 'border-slate-900', 'bg-slate-50');
+                    b.classList.add('border', 'border-slate-200', 'bg-white');
+                });
+                btn.classList.add('border-2', 'border-slate-900', 'bg-slate-50');
+                btn.classList.remove('border-slate-200', 'bg-white');
+
+                currentBasePrice = parseInt(btn.dataset.price, 10);
+                currentTypeLabel = btn.dataset.label;
+                updateSimulator();
+            });
+        });
+
+        simAddonCheckboxes.forEach(cb => {
+            cb.addEventListener('change', updateSimulator);
+        });
+
+        if (simTransferBtn) {
+            simTransferBtn.addEventListener('click', () => {
+                const selectElement = document.getElementById('formula');
+                const messageElement = document.getElementById('message');
+
+                if (selectElement) {
+                    if (currentTypeLabel.includes('One-page')) {
+                        selectElement.value = 'Vitrine Essentiel';
+                    } else if (currentTypeLabel.includes('Sur-Mesure')) {
+                        selectElement.value = 'Site Sur-Mesure';
+                    } else {
+                        selectElement.value = 'Projet Spécifique';
+                    }
+                }
+
+                const activeAddons = [];
+                simAddonCheckboxes.forEach(cb => {
+                    if (cb.checked) activeAddons.push(cb.dataset.name);
+                });
+
+                if (messageElement) {
+                    let prefill = 'Bonjour TwoDevs,\n\nJe souhaite échanger sur la formule : ' + currentTypeLabel + ' (Estimation : ' + simTotalPriceEl.textContent + ').\n';
+                    if (activeAddons.length > 0) {
+                        prefill += 'Options sélectionnées : ' + activeAddons.join(', ') + '.\n\n';
+                    }
+                    prefill += 'Voici quelques précisions sur notre activité :\n';
+                    messageElement.value = prefill;
+                }
+
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                const icon = btn.querySelector('.faq-icon');
+                const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+                document.querySelectorAll('.faq-toggle').forEach(otherBtn => {
+                    if (otherBtn !== btn) {
+                        otherBtn.setAttribute('aria-expanded', 'false');
+                        otherBtn.nextElementSibling.classList.add('hidden');
+                        otherBtn.querySelector('.faq-icon').classList.remove('rotate-180');
+                    }
+                });
+
+                if (isExpanded) {
+                    btn.setAttribute('aria-expanded', 'false');
+                    content.classList.add('hidden');
+                    icon.classList.remove('rotate-180');
+                } else {
+                    btn.setAttribute('aria-expanded', 'true');
+                    content.classList.remove('hidden');
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+
+        // Form submission (AJAX)
+        const contactForm = document.getElementById('contact-form');
+        const formFeedback = document.getElementById('form-feedback');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                btnText.textContent = "Transmission en cours...";
+                submitBtn.disabled = true;
+
+                const formData = new FormData(contactForm);
+
+                try {
+                    const response = await fetch(contactForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        formFeedback.className = "mt-4 p-3.5 rounded-xl text-center text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200";
+                        formFeedback.innerHTML = "✓ <strong>Demande envoyée !</strong> Nous vous recontacterons sous 24h avec votre estimation.";
+                        formFeedback.classList.remove('hidden');
+                        contactForm.reset();
+                        btnText.textContent = "Demande envoyée avec succès";
+                    } else {
+                        throw new Error('Erreur');
+                    }
+                } catch (err) {
+                    formFeedback.className = "mt-4 p-3.5 rounded-xl text-center text-xs font-semibold bg-red-50 text-red-700 border border-red-200";
+                    formFeedback.innerHTML = "Erreur de transmission. Écrivez-nous directement à <a href='mailto:twodevs@outlook.fr' class='underline'>twodevs@outlook.fr</a>.";
+                    formFeedback.classList.remove('hidden');
+                    btnText.textContent = "Réessayer l'envoi";
+                    submitBtn.disabled = false;
+                }
+            });
         }
     </script>
 </body>
