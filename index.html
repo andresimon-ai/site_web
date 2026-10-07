@@ -37,8 +37,15 @@
             }
         }
     </script>
-    <!-- Optional External Config for API keys -->
-    <script src="config.js"></script>
+    <!-- Configuration locale facultative -->
+    <script>
+        (function() {
+            var s = document.createElement('script');
+            s.src = 'config.js';
+            s.onerror = function() { /* config.js absent en prod, c'est normal */ };
+            document.head.appendChild(s);
+        })();
+    </script>
 
     <style>
         body {
@@ -372,7 +379,7 @@
                             </p>
                             <div class="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200">
                                 <span class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold block">Forfait unique</span>
-                                <div class="text-3xl font-extrabold text-slate-900 font-display mt-0.5">390 €</div>
+                                <div class="text-3xl font-extrabold text-slate-900 font-display mt-0.5">650 €</div>
                                 <span class="text-xs text-slate-500">Paiement en 2 fois possible</span>
                             </div>
                             <ul class="space-y-3 text-xs text-slate-700 mb-8">
@@ -418,7 +425,7 @@
                             </p>
                             <div class="mb-6 p-4 rounded-xl bg-slate-100/70 border border-slate-200">
                                 <span class="text-[11px] uppercase tracking-wider text-slate-600 font-semibold block">Forfait complet</span>
-                                <div class="text-3xl font-extrabold text-slate-950 font-display mt-0.5">790 €</div>
+                                <div class="text-3xl font-extrabold text-slate-950 font-display mt-0.5">1 090 €</div>
                                 <span class="text-xs text-slate-600 font-medium">Assistant IA personnalisé inclus</span>
                             </div>
                             <ul class="space-y-3 text-xs text-slate-800 mb-8">
@@ -465,8 +472,8 @@
                             </p>
                             <div class="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200">
                                 <span class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold block">Tarification</span>
-                                <div class="text-3xl font-extrabold text-slate-900 font-display mt-0.5">Sur Cahier des Charges</div>
-                                <span class="text-xs text-slate-500">Devis détaillé sous 24h</span>
+                                <div class="text-3xl font-extrabold text-slate-900 font-display mt-0.5">Dès 1 490 €</div>
+                                <span class="text-xs text-slate-500">Sur cahier des charges / Devis en 24h</span>
                             </div>
                             <ul class="space-y-3 text-xs text-slate-700 mb-8">
                                 <li class="flex items-center gap-2.5">
@@ -513,20 +520,20 @@
                     <div class="mb-8">
                         <label class="block text-xs uppercase font-bold text-slate-500 tracking-wider mb-3">1. Format du site</label>
                         <div class="grid sm:grid-cols-3 gap-3.5" id="sim-type-group">
-                            <button type="button" data-type="onepage" data-price="390" data-label="Vitrine Essentiel (One-page)" class="sim-type-btn text-left p-4 rounded-xl border-2 border-slate-900 bg-slate-50 transition">
+                            <button type="button" data-type="onepage" data-price="650" data-label="Vitrine Essentiel (One-page)" class="sim-type-btn text-left p-4 rounded-xl border-2 border-slate-900 bg-slate-50 transition">
                                 <div class="font-bold text-slate-900 text-sm">One-Page Vitrine</div>
                                 <div class="text-xs text-slate-500 mt-0.5">Présentation concise</div>
-                                <div class="font-bold text-slate-900 text-xs mt-2">Base : 390 €</div>
+                                <div class="font-bold text-slate-900 text-xs mt-2">Base : 650 €</div>
                             </button>
-                            <button type="button" data-type="multipage" data-price="790" data-label="Sur-Mesure & IA (Jusqu'à 5 pages)" class="sim-type-btn text-left p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-300 transition">
+                            <button type="button" data-type="multipage" data-price="1090" data-label="Sur-Mesure & IA (Jusqu'à 5 pages)" class="sim-type-btn text-left p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-300 transition">
                                 <div class="font-bold text-slate-900 text-sm">Sur-Mesure + IA</div>
                                 <div class="text-xs text-slate-500 mt-0.5">Multi-pages + Assistant</div>
-                                <div class="font-bold text-slate-900 text-xs mt-2">Base : 790 €</div>
+                                <div class="font-bold text-slate-900 text-xs mt-2">Base : 1 090 €</div>
                             </button>
-                            <button type="button" data-type="custom" data-price="1200" data-label="Application / Automatisation Sur-Mesure" class="sim-type-btn text-left p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-300 transition">
+                            <button type="button" data-type="custom" data-price="1490" data-label="Application / Automatisation Sur-Mesure" class="sim-type-btn text-left p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-300 transition">
                                 <div class="font-bold text-slate-900 text-sm">Application Web</div>
                                 <div class="text-xs text-slate-500 mt-0.5">Besoins complexes</div>
-                                <div class="font-bold text-slate-900 text-xs mt-2">Base : 1 200 €</div>
+                                <div class="font-bold text-slate-900 text-xs mt-2">Base : 1 490 €</div>
                             </button>
                         </div>
                     </div>
@@ -544,25 +551,25 @@
                             </label>
 
                             <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-slate-50 cursor-pointer transition">
-                                <input type="checkbox" data-price="120" data-name="Audit & Optimisation SEO Moteurs IA" class="sim-addon-checkbox mt-0.5 accent-slate-900 w-4 h-4 rounded">
+                                <input type="checkbox" data-price="150" data-name="Audit & Optimisation SEO Moteurs IA" class="sim-addon-checkbox mt-0.5 accent-slate-900 w-4 h-4 rounded">
                                 <div>
-                                    <div class="font-semibold text-xs text-slate-900">Référencement Sémantique (+120 €)</div>
+                                    <div class="font-semibold text-xs text-slate-900">Référencement Sémantique (+150 €)</div>
                                     <div class="text-[11px] text-slate-500">Structuration pour moteurs traditionnels et nouveaux moteurs IA</div>
                                 </div>
                             </label>
 
                             <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-slate-50 cursor-pointer transition">
-                                <input type="checkbox" data-price="140" data-name="Identité visuelle & Logo" class="sim-addon-checkbox mt-0.5 accent-slate-900 w-4 h-4 rounded">
+                                <input type="checkbox" data-price="150" data-name="Identité visuelle & Logo" class="sim-addon-checkbox mt-0.5 accent-slate-900 w-4 h-4 rounded">
                                 <div>
-                                    <div class="font-semibold text-xs text-slate-900">Identité Graphique (+140 €)</div>
+                                    <div class="font-semibold text-xs text-slate-900">Identité Graphique (+150 €)</div>
                                     <div class="text-[11px] text-slate-500">Logo épuré, choix typographiques et palette harmonieuse</div>
                                 </div>
                             </label>
 
                             <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-slate-50 cursor-pointer transition">
-                                <input type="checkbox" data-price="180" data-name="Rédaction de contenus professionnels" class="sim-addon-checkbox mt-0.5 accent-slate-900 w-4 h-4 rounded">
+                                <input type="checkbox" data-price="150" data-name="Rédaction de contenus professionnels" class="sim-addon-checkbox mt-0.5 accent-slate-900 w-4 h-4 rounded">
                                 <div>
-                                    <div class="font-semibold text-xs text-slate-900">Rédaction Copywriting (+180 €)</div>
+                                    <div class="font-semibold text-xs text-slate-900">Rédaction Copywriting (+150 €)</div>
                                     <div class="text-[11px] text-slate-500">Textes impactants rédigés pour susciter la confiance de vos clients</div>
                                 </div>
                             </label>
@@ -574,7 +581,7 @@
                         <div>
                             <span class="text-xs text-slate-500 uppercase font-semibold">Estimation Indicative</span>
                             <div class="flex items-baseline gap-2">
-                                <span id="sim-total-price" class="text-3xl font-extrabold font-display text-slate-950">390 €</span>
+                                <span id="sim-total-price" class="text-3xl font-extrabold font-display text-slate-950">650 €</span>
                                 <span class="text-xs text-slate-500">TTC tout compris</span>
                             </div>
                             <span id="sim-summary-text" class="text-xs text-slate-700 font-medium block mt-0.5">Formule : Vitrine Essentiel (One-page)</span>
@@ -784,33 +791,33 @@
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
                                 <label for="name" class="block text-xs font-bold text-slate-700 mb-1.5">Nom ou Entreprise *</label>
-                                <input type="text" id="name" name="nom" required placeholder="Ex: Thomas Laurent" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 placeholder-slate-400">
+                                <input type="text" id="name" name="nom" required maxlength="100" placeholder="Ex: Thomas Laurent" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 placeholder-slate-400">
                             </div>
                             <div>
                                 <label for="email" class="block text-xs font-bold text-slate-700 mb-1.5">Adresse e-mail *</label>
-                                <input type="email" id="email" name="email" required placeholder="thomas@entreprise.fr" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 placeholder-slate-400">
+                                <input type="email" id="email" name="email" required maxlength="150" placeholder="thomas@entreprise.fr" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 placeholder-slate-400">
                             </div>
                         </div>
 
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
                                 <label for="phone" class="block text-xs font-bold text-slate-700 mb-1.5">Téléphone (Optionnel)</label>
-                                <input type="tel" id="phone" name="telephone" placeholder="06 00 00 00 00" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 placeholder-slate-400">
+                                <input type="tel" id="phone" name="telephone" maxlength="30" placeholder="06 00 00 00 00" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 placeholder-slate-400">
                             </div>
                             <div>
                                 <label for="formula" class="block text-xs font-bold text-slate-700 mb-1.5">Formule souhaitée</label>
                                 <select id="formula" name="formule" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900">
                                     <option value="Non spécifié">Sélectionnez une formule...</option>
-                                    <option value="Vitrine Essentiel">Vitrine Essentiel (390 €)</option>
-                                    <option value="Site Sur-Mesure">Sur-Mesure & IA (790 €)</option>
-                                    <option value="Projet Spécifique">IA & Automatisation Sur-Mesure</option>
+                                    <option value="Vitrine Essentiel">Vitrine Essentiel (650 €)</option>
+                                    <option value="Site Sur-Mesure">Sur-Mesure & IA (1 090 €)</option>
+                                    <option value="Projet Spécifique">IA & Automatisation Sur-Mesure (Dès 1 490 €)</option>
                                 </select>
                             </div>
                         </div>
 
                         <div>
                             <label for="message" class="block text-xs font-bold text-slate-700 mb-1.5">Décrivez votre activité et vos besoins *</label>
-                            <textarea id="message" name="message" rows="4" required placeholder="Expliquez-nous brièvement votre activité, vos objectifs ou vos éventuelles questions..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 placeholder-slate-400 resize-none"></textarea>
+                            <textarea id="message" name="message" rows="4" required maxlength="3000" placeholder="Expliquez-nous brièvement votre activité, vos objectifs ou vos éventuelles questions..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-white text-slate-900 placeholder-slate-400 resize-none"></textarea>
                         </div>
 
                         <button type="submit" id="submit-btn" class="w-full py-3.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-2 transition active:scale-[0.99]">
@@ -1015,9 +1022,9 @@
 Ton rôle est de répondre aux questions des visiteurs avec clarté, professionnalisme et concision, et de les orienter vers la formule idéale :
 
 Nos offres et formules :
-1. "Vitrine Essentiel" (390 €) : Site One-Page moderne, ultra-rapide, responsive mobile/tablette, formulaire de contact, référencement de base Google, livraison express en 7 jours.
-2. "Sur-Mesure & IA" (790 € - Notre formule phare) : Site multi-pages complet (jusqu'à 5 pages), design ergonomique sur-mesure, assistant IA interactif intégré et configuré sur les données de l'entreprise, SEO sémantique pour moteurs IA, livraison ~2 semaines.
-3. "IA & Automatisation Sur-Mesure" (Sur devis) : Applications web spécifiques, intégrations d'APIs IA, workflows automatisés (Make / n8n / Python), dashboards de gestion.
+1. "Vitrine Essentiel" (650 €) : Site One-Page moderne, ultra-rapide, responsive mobile/tablette, formulaire de contact, référencement de base Google, livraison express en 7 jours.
+2. "Sur-Mesure & IA" (1 090 € - Notre formule phare) : Site multi-pages complet (jusqu'à 5 pages), design ergonomique sur-mesure, assistant IA interactif intégré et configuré sur les données de l'entreprise, SEO sémantique pour moteurs IA, livraison ~2 semaines.
+3. "IA & Automatisation Sur-Mesure" (Dès 1 490 € / Sur devis) : Applications web spécifiques, intégrations d'APIs IA, workflows automatisés (Make / n8n / Python), dashboards de gestion.
 
 Nos atouts majeurs :
 - Échange direct avec les développeurs (zéro intermédiaire, pas de surcoût d'agence).
@@ -1032,15 +1039,31 @@ Consignes pour tes réponses :
 
         let chatHistory = [];
 
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function formatAiReply(str) {
+            return escapeHtml(str).replace(/\n/g, '<br>');
+        }
+
         function addAiMessage(text, isUser = false) {
             const container = document.getElementById('ai-chat-messages');
             const row = document.createElement('div');
             row.className = isUser ? 'flex items-start gap-2.5 justify-end' : 'flex items-start gap-2.5';
 
+            const safeContent = formatAiReply(text);
+
             if (isUser) {
                 row.innerHTML = `
                     <div class="bg-slate-900 text-white p-3 rounded-2xl rounded-tr-sm max-w-[85%] leading-relaxed text-xs">
-                        ${text}
+                        ${safeContent}
                     </div>
                     <div class="w-6 h-6 rounded-md bg-slate-200 text-slate-800 flex items-center justify-center font-bold text-[10px] shrink-0">
                         Vous
@@ -1052,7 +1075,7 @@ Consignes pour tes réponses :
                         IA
                     </div>
                     <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-sm shadow-sm max-w-[85%] leading-relaxed text-slate-800 text-xs">
-                        ${text}
+                        ${safeContent}
                     </div>
                 `;
             }
@@ -1168,7 +1191,7 @@ Consignes pour tes réponses :
             }
 
             if (!generatedAnswer) {
-                generatedAnswer = "Chez TwoDevs, nous concevons des sites vitrines modernes (dès 390 €) et des solutions sur-mesure avec assistant IA (dès 790 €), ultra-rapides et sans abonnement. N'hésitez pas à nous poser vos questions ou à utiliser notre simulateur de devis ci-dessous !";
+                generatedAnswer = "Chez TwoDevs, nous concevons des sites vitrines modernes (dès 650 €) et des solutions sur-mesure avec assistant IA (dès 1 090 €), ultra-rapides et sans abonnement. N'hésitez pas à nous poser vos questions ou à utiliser notre simulateur de devis ci-dessous !";
             }
 
             chatHistory.push({
@@ -1187,7 +1210,7 @@ Consignes pour tes réponses :
         function handleAiChatSubmit(e) {
             e.preventDefault();
             const input = document.getElementById('ai-chat-input');
-            const val = input.value.trim();
+            const val = input.value.trim().slice(0, 500);
             if (!val) return;
             input.value = '';
             askAiQuestion(val);
@@ -1200,7 +1223,7 @@ Consignes pour tes réponses :
         const simSummaryTextEl = document.getElementById('sim-summary-text');
         const simTransferBtn = document.getElementById('sim-transfer-btn');
 
-        let currentBasePrice = 390;
+        let currentBasePrice = 650;
         let currentTypeLabel = 'Vitrine Essentiel (One-page)';
 
         function updateSimulator() {
